@@ -1,0 +1,73 @@
+﻿<MudDialog Class="heightdialog">
+	<DialogContent>
+
+
+		<MudContainer Fixed="true">
+			<MudText Typo="Typo.h4" Class="mb-3 heading">
+				About <span>Us</span>
+			</MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align">
+				<p>
+					Introducing FarmztoFamiliez, our brand of absolutely homemade, wholesome products made in small batches with no preservatives.
+					We believe that the best food comes from using fresh, locally-sourced ingredients, which is why we work directly with farmers to bring you the highest quality products.
+					Our commitment to freshness means that you can enjoy our products at their peak flavor, making every bite a delicious and satisfying experience.
+					F2F is not just a startup, our journey is a testament to the power of determination, resilience, and passion of a woman entrepreneur.
+				</p>
+			</MudText>
+			<MudButton Class="btn-right my-3" OnClick="Cancel">Ok</MudButton>
+
+		</MudContainer>
+
+	</DialogContent>
+	<DialogActions>
+	</DialogActions>
+</MudDialog>
+
+<style>
+	.text-align {
+		text-align: justify;
+	}
+
+	.btn-right {
+		float: right;
+		background-color: #ff7800;
+		color: white
+	}
+
+		.btn-right:hover {
+			background-color: white;
+			color: #ff7800
+		}
+
+	.heading {
+		color: #130f40 !important;
+		font-family: Impact, Haettenschweiler, sans-serif !important;
+	}
+
+		.heading span {
+			color: #ff7800;
+		}
+
+	body {
+		background-color: #fffdf7;
+	}
+
+	@@media (min-width: 360px) and (max-width: 767px) {
+		.heightdialog {
+			width: 90%;
+		}
+	}
+
+	@@media (min-width: 279px) and (max-width: 359px) {
+		.heightdialog {
+			width: 90%;
+			max-height: 500px
+		}
+	}
+</style>
+
+@code {
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	void Cancel() => MudDialog.Cancel();
+}

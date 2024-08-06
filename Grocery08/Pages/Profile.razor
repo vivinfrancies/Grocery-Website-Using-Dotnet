@@ -1,0 +1,248 @@
+﻿@page "/profile"
+@inject ISnackbar Snackbar
+<MudContainer MaxWidth="MaxWidth.Small">
+	<MudCard>
+		<div class="bgimg">
+		<MudContainer>
+
+			<MudGrid Class="my-10">
+
+			<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" Class="d-flex align-content-center justify-content-center">
+				<MudImage Class="profileimg" Src="img/blog/blog01.jpg"></MudImage>
+				<MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+					<ButtonTemplate>
+						<MudIconButton HtmlTag="label"
+									   Color="Color.Dark"
+									   Icon="@Icons.Material.Filled.Edit"  Class="editsize"
+									   for="@context.Id">
+						</MudIconButton>
+					</ButtonTemplate>
+				</MudFileUpload>
+				</MudItem>
+
+				
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" >
+					<MudText Class="alignorder">
+
+						First Name <span style="padding:5px;color:red;">*</span>
+
+					</MudText>
+				</MudItem>
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" >
+					<MudText Class="alignorder">
+
+						Last Name
+
+					</MudText>
+				</MudItem>
+
+
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" Class="alignorder1">
+					<MudTextField T="string" Placeholder="First Name" @bind-Value="@obj.Fname1" ReadOnly="@readone" Variant="Variant.Outlined" For="(()=>obj.Fname1)"></MudTextField>
+				</MudItem>
+
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" Class="alignorder1">
+					<MudTextField T="string" Placeholder="Last Name" @bind-Value="@obj.Lname1" ReadOnly="@readone" Variant="Variant.Outlined" For="(()=>obj.Lname1)"></MudTextField>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" >
+					<MudText Class="alignorder">
+
+							Mail<span style="padding:5px;color:red;">*</span>
+
+					</MudText>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" Class="alignorder1">
+						<MudTextField T="string" Placeholder="Mail id" @bind-Value="@obj.Email1" ReadOnly="@readone" Variant="Variant.Outlined" For="(()=>obj.Email1)"></MudTextField>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12">
+					<MudText Class="alignorder">
+
+							Contact Number<span style="padding:5px;color:red;">*</span>
+
+					</MudText>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" Class="alignorder1">
+						<MudTextField T="string" Placeholder="Contact Number" @bind-Value="@obj.Phonenumber1" ReadOnly="@readone" Variant="Variant.Outlined" For="(()=>obj.Phonenumber1)"></MudTextField>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" >
+					<MudText Class="alignorder">
+
+						Address 1
+
+					</MudText>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" Class="alignorder1">
+					<MudTextField T="string" Placeholder="Address Line 1" @bind-Value="@obj.Address11" ReadOnly="@readone" Variant="Variant.Outlined" Lines="2" ></MudTextField>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" >
+					<MudText Class="alignorder">
+
+						Address 2
+
+					</MudText>
+				</MudItem>
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" Class="alignorder1">
+					<MudTextField T="string" Placeholder="Address Line 2" @bind-Value="@obj.Address21" ReadOnly="@readone" Variant="Variant.Outlined" Lines="2"></MudTextField>
+				</MudItem>
+
+
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" >
+					<MudText Class="alignorder">
+
+						City
+
+					</MudText>
+
+				</MudItem>
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6">
+					<MudText Class="alignorder">
+
+						Pincode
+
+					</MudText>
+				</MudItem>
+
+
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" Class="alignorder1">
+						<MudTextField T="string" Placeholder="City" @bind-Value="@obj.City1" ReadOnly="@readone" Variant="Variant.Outlined" For="(()=>obj.City1)"></MudTextField>
+				</MudItem>
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" Class="alignorder1">
+						<MudTextField T="string" Placeholder="Pincode" @bind-Value="@obj.Pincode1" ReadOnly="@readone" Variant="Variant.Outlined" For="(()=>obj.Pincode1)"></MudTextField>
+				</MudItem>
+
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" >
+					<MudText Class="alignorder">
+
+						State
+
+					</MudText>
+				</MudItem>
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" >
+					<MudText Class="alignorder">
+
+						Country
+
+					</MudText>
+				</MudItem>
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" Class="alignorder1">
+						<MudTextField T="string" Placeholder="State" @bind-Value="@obj.state1" ReadOnly="@readone" Variant="Variant.Outlined" For="(()=>obj.state1)"></MudTextField>
+				</MudItem>
+				<MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" Class="alignorder1">
+					<MudTextField T="string" ReadOnly="true" Value="@country" Variant="Variant.Outlined"></MudTextField>
+				</MudItem>
+
+
+				<MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12" Class="d-flex align-content-end justify-content-end">
+						<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" Class="ml-2 btn-right" OnClick="@edit">Edit</MudButton>
+
+
+						<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Size="Size.Small" Class="ml-2 btn-right" OnClick="@save">Save</MudButton>
+
+				</MudItem>
+
+			</MudGrid>
+		</MudContainer>
+		</div>
+	</MudCard>
+</MudContainer>
+<style>
+	/* 	.alignorder{
+			margin-top:50px;
+		}
+
+		.alignorder1 {
+			margin-bottom: 80px;
+		} */
+	.alignorder {
+		margin-bottom: -25px;
+		font-family: Calibri;
+		font-weight: 600;
+		color: #130f40 !important;
+	}
+	.btncolor {
+		background-color: #ff7800;
+		color: white;
+	}
+
+		.btncolor:hover {
+			background-color: white;
+			color: #ff7800;
+		}
+
+	.profileimage{
+		border-radius:50%;
+		height:100px;
+		width:100px;
+	}
+
+	.bgimg {
+		background-image: url("logbg.jpg");
+		background-size: 100% 100%;
+		margin-top: -30px;
+	}
+
+	.btn-right {
+		float: right;
+		background-color: #ff7800;
+		color: white
+	}
+
+		.btn-right:hover {
+			border: 1px solid #ff7800;
+			background-color: white;
+			color: #ff7800
+		}
+
+	.profileimg {
+		border-radius: 50%;
+		height: 100px;
+		width: 100px;
+	}
+
+	.editsize {
+		height: 10px;
+		width: 10px;
+		margin-left: -10px;
+		margin-top: 75px;
+	}
+</style>
+@code {
+	public string country = "India";
+	public string Fname1 = "Hemalatha";
+	public string Lname1 = "N S";
+	public string Email1 = "hema@gmail.com";
+	public string Phonenumber1 = "8754357876";
+	public string Address11 = "6/83 Airport road";
+	public string Address21 = "cbe road";
+	public string city1 = "Coimbatore";
+	public string pincode1 = "641017";
+	public string state1 = "TamilNadu";
+	
+
+	profileform obj = new profileform();
+	public bool readone = true;
+	void edit()
+	{
+		readone = false;
+	}
+	void save()
+	{
+		if (readone == false)
+		{
+			readone = true;
+			Snackbar.Add("Profile Updated.", Severity.Success);
+		}
+	}
+	IList<IBrowserFile> files = new List<IBrowserFile>();
+	private void UploadFiles(IBrowserFile file)
+	{
+		files.Add(file);
+		//TODO upload the files to the server
+	}
+
+}
+
+
+
+
+

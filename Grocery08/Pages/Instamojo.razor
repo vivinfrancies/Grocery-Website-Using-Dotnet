@@ -1,0 +1,213 @@
+﻿@page "/Instamojo"
+@inject NavigationManager NavigationManager
+@inject IDialogService Dialog
+@inject IDialogService DialogService
+<MudGrid Class="my-10">
+	
+		<MudItem lg="4"></MudItem>
+		
+		<MudItem lg="4" md="6" sm="12" xs="12">
+		<MudCard>
+		<MudCardHeader Class="backcolor">
+        <CardHeaderAvatar>
+		<MudAvatar><MudIcon Icon="@Icons.Material.Filled.Contacts"  Class="iconsize" /></MudAvatar>
+        </CardHeaderAvatar>
+          <CardHeaderContent>
+						<MudText Typo="Typo.body1">Paying to</MudText>
+						<MudText Typo="Typo.body2">payments_3ac5</MudText>
+						<MudSpacer/>
+		
+
+           </CardHeaderContent>
+		 
+		   
+			
+		  </MudCardHeader>
+		  <MudCardContent>
+			  <MudContainer>
+					<MudText T="string" Class="mt-1"><strong>Purpose of Payment</strong></MudText>
+						<MudText T="string" Class="mt-1">Instapay</MudText>
+					<MudText T="string" Class="mt-3"><strong>Amount</strong></MudText>
+						<MudText T="string" Class="mt-1">₹ 1,000</MudText>
+						<MudElement hidden="@change">
+
+					<MudGrid Class="mt-3">
+						<MudItem lg="1" sm="1" xs="1" md="1">
+							<MudIcon Icon="@Icons.Material.Filled.Warning" Class="warningcolor"></MudIcon>
+						</MudItem>
+						<MudItem lg="11" sm="11" xs="11" md="11">
+							<MudText T="string">Please refer to https://bit.ly/test-creds for test credentials</MudText>
+						</MudItem>
+					</MudGrid>
+					<MudDrawer Class="mt-2"></MudDrawer>
+						<MudText T="string" Class="mt-4">Select a Payment Method</MudText>
+						<MudButton StartIcon="@Icons.Material.Filled.CreditCard" Variant="Variant.Outlined" IconColor="Color.Warning" Size="Size.Large" FullWidth="true" Color="Color.Warning" Class="mt-2" OnClick="(()=>press())">Debit Card</MudButton>
+
+						
+
+					</MudElement>
+					<MudElement hidden="@paychange">
+						<MudGrid>
+							<MudItem lg="9" sm="9" md="9" xs="9">
+								<MudText T="string">Debit Card</MudText>
+							</MudItem>
+							<MudItem lg="3" sm="3" md="3" xs="3">
+								<MudButton Class="btn-right" Variant="Variant.Outlined" OnClick="(()=>backpage())">Change</MudButton>
+							</MudItem>
+						</MudGrid>
+
+
+						<MudTextField T="string" Mask="@(new PatternMask("0000 0000 0000 0000"))" Label="Credit Card Number" @bind-Value="@ccn.Cerditcardnumber" Variant="@Variant.Outlined" Required="true" Class="searchoutline" />
+					<MudGrid>
+						<MudItem lg="12" sm="12" xs="12" md="12" Class="mt-3">
+							<MudStack Row="true">
+									<MudTextField T="string" Label="Expires" Mask="@(new DateMask("MM/YY", 'Y', 'M'))" @bind-Value="@ccn.expiryyear" Required="true" Variant="@Variant.Outlined" Class="searchoutline" />
+									<MudTextField T="string" Label="CVC" Mask="@(new PatternMask("000"))" @bind-Value="@ccn.cvv" Required="true" Variant="@Variant.Outlined" Class="searchoutline" />
+						
+							</MudStack>
+							</MudItem>
+							<MudItem Class="mt-4" lg="12" xs="12" sm="12" md="12">
+							<MudButton  Variant="Variant.Filled" Color="Color.Success" Class="mt-2 pay" FullWidth="true">PAY 1000</MudButton>
+							</MudItem>
+					</MudGrid>
+			     
+					@* <MudGrid>
+						<MudItem lg="4">
+							<MudNumericField  @bind-Value="@expm.expirymonth" Label="MM" Variant="Variant.Filled" Min="01" Max="12" FullWidth="true"  Required="true"/>
+						</MudItem>
+						<MudItem lg="4">
+							<MudNumericField @bind-Value="@ccn.expiryyear" Label="YYYY" Variant="Variant.Filled" Min="2024" Max="2050" FullWidth="true" Required="true" />
+						</MudItem>
+						<MudItem lg="4">
+							<MudTextField Mask="@(new PatternMask("000"))" Label="CVV" Variant="Variant.Filled" @bind-Value="@ccn.cvv" Required="true" />
+						</MudItem> 
+						
+					</MudGrid>  *@
+						
+					
+					</MudElement>
+
+
+					
+					<MudItem Class="mt-4"></MudItem>
+					<MudLink Class="Dialogchange" OnClick="click">Terms of service and Refund policy</MudLink>
+					<MudItem Class="mt-5"></MudItem>
+					<MudGrid>
+						<MudItem lg="3" sm="3" xs="3" md="3">
+							<MudTooltip Text="Reserve bank of India">
+							<MudImage Src="/img/rbi-icon.png" Class="footicon"></MudImage>
+							</MudTooltip>
+						</MudItem>
+						<MudItem lg="3" sm="3" xs="3" md="3">
+							<MudTooltip Text="VISA Card">
+							<MudImage Src="/img/visa-icon.png" Class="footicon"></MudImage>
+							</MudTooltip>
+						</MudItem>
+						<MudItem lg="3" sm="3" xs="3" md="3">
+							<MudTooltip Text="UPI Pay">
+							<MudImage Src="/img/payment/upi-icon.png" Class="footicon"></MudImage>
+							</MudTooltip>
+						</MudItem>
+						<MudItem lg="3" sm="3" xs="3" md="3">
+							<MudTooltip Text="Rupay">
+							<MudImage Src="/img/rupay-icon.png" Class="footicon"></MudImage>
+							</MudTooltip>
+						</MudItem>
+					</MudGrid>
+					<MudGrid>
+						<MudItem lg="5" sm="5" xs="5" md="5"></MudItem>
+						<MudItem lg="2" sm="2" xs="2" md="2">
+							<MudButton OnClick="totalclose" Class="btn-right" Variant="Variant.Filled">
+								Close
+							</MudButton>
+						</MudItem>
+						<MudItem lg="5" sm="5" xs="5" md="5"></MudItem>
+					</MudGrid>
+					
+			 </MudContainer>
+		  </MudCardContent>
+		</MudCard>
+
+		</MudItem>
+		<MudItem lg="4"></MudItem>
+	
+	
+</MudGrid>
+<style>
+	.pay{
+		width:100%;
+	}
+	.iconsize{
+		color:black;
+		font-size:4rem;
+	}
+
+	.backcolor{
+		background-color: #666;
+	}
+
+	.warningcolor{
+		color:red;
+		height:50px;
+	}
+
+	.footicon{
+		heigth:40px;
+		width:40px;
+	}
+
+	.Dialogchange{
+
+		margin-left:40px;
+	    -webkit-text-fill-color:black;
+		
+	}
+
+	.btn-right {
+		float: right;
+		background-color: #ff7800;
+		color: white
+	}
+
+		.btn-right:hover {
+			border: 1px solid #ff7800;
+			background-color: white;
+			color: #ff7800
+		}
+
+	.searchoutline {
+		--mud-palette-primary: #ff7800;
+	}
+</style>
+@code {
+
+	private bool change = false;
+	private bool paychange = true;
+
+	public int IntValue { get; set; }
+	Cerditcard ccn = new Cerditcard();
+	Search expm = new Search();
+
+	public void press()
+	{
+		paychange=false;
+		change = true;
+	}
+	public void backpage()
+	{
+		paychange = true;
+		change = false;
+	}
+
+		private void click()
+	{
+		var o = new DialogOptions { CloseOnEscapeKey = true };
+		DialogService.Show<Dialogbox>("", o);
+	}
+	
+	void totalclose()
+	{
+		NavigationManager.NavigateTo("/Wallet");
+	}
+
+}

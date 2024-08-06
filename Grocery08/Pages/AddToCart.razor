@@ -1,0 +1,76 @@
+﻿@page "/addtocart"
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudGrid>
+        <MudItem xxl="12" xl="12" lg="12" md="12" sm="12" xs="12">
+            <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading"> My <span class="ml-2"> Cart</span> </MudText>
+        </MudItem>
+    </MudGrid>
+    <MudGrid>
+        <MudItem xxl="2" xl="2" lg="2" md="2" sm="2" xs="1">
+        </MudItem>
+        <MudItem xxl="8" xl="8" lg="8" md="8" sm="8" xs="10">
+            <MudImage Class="CartImage" Src="img/empty-cart.png" />
+        </MudItem>
+        <MudItem xxl="2" xl="2" lg="2" md="2" sm="2" xs="1">
+        </MudItem>
+    </MudGrid>
+
+    <MudText Class="text">
+        <h2>Your Cart is Empty..!</h2>
+    </MudText>
+
+    <MudItem Class="d-flex align-content-center justify-content-center">
+        <MudButton Variant="Variant.Filled" Class="CartButton mb-7" Href="/">Continue Shopping</MudButton>
+    </MudItem>
+</MudContainer>
+
+<style>
+    body {
+        background-color: #fffdf7;
+    }
+
+    .CartTitle {
+        text-align: center;
+        font-family: Impact, Haettenschweiler, sans-serif;
+    }
+
+    .heading {
+        color: #130f40 !important;
+        font-family: Impact, Haettenschweiler, sans-serif !important;
+    }
+
+        .heading span {
+            color: #ff7800;
+        }
+
+    .CartImage {
+        height: auto;
+        width: 80%;
+    }
+
+    .CartContent {
+        font-family: Verdana;
+        margin-top: 100px;
+        text-align: center;
+    }
+
+    .text {
+        text-align: center;
+    }
+
+    .CartBody {
+        margin-top: 20px;
+    }
+
+    .CartButton {
+        background-color: #ff7800;
+        color: white;
+    }
+
+        .CartButton:hover {
+            color: #ff9900;
+            background-color: white;
+        }
+
+</style>

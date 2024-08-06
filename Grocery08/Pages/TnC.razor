@@ -1,0 +1,93 @@
+﻿<MudDialog Class="heightdialog">
+	<DialogContent>
+
+
+		<MudContainer Fixed="true">
+			<MudText Typo="Typo.h4" Class="mb-3 heading">
+				Terms <span>and</span> Conditions
+			</MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align">
+				<p>
+					FarmztoFamiliez is the only authentic and licensed owner of the brand F2F and the website www.farmztofamiliez.com (”The Site”).
+					As a client to the site you are kindly advised to carefully read the Terms & Conditions provided.
+					By accessing the services granted by the Site you agree to the terms highlighted in this Terms & Conditions document.
+				</p>
+				<p>
+					F2F may collect the following personal and identifiable information about you, as a part of the registration process on the site which may include: Name- first and last name, email address,
+					mobile number and contact details, postal code, Demographic profile (like your age, gender, occupation, education, address etc.) and information about the pages on the site you visit/access,
+					the links you click on the site, the number of times you access the page and any such browsing information.
+				</p>
+				<p>All shoppers are advised to register and login for placing orders on the Site. Users are requested to choose a strong password and should not share it with others.</p>
+				<p>
+					As a customer you can cancel your order anytime up to the cut-off time given in the slot for which you have placed an order by calling our customer service/admin.
+					In such a case we are liable only to refund any payment already made by you for the order. All refunds will be credited to your account which can then be used by you.
+					There will be no automatic refund to your accounts (UPI, Bank,etc) because of security reasons. You are free to request refund through an email addressed to refund@farmztofamiliez.com
+				</p>
+				<p>
+					We have a "no questions asked return and refund policy" which entitles all our clients to return the product at the time of delivery (for ultra fresh products) and can return non-ultra-fresh products within 3 days.
+					The product will be taken back with us and we will issue a credit note for the value of the returned products which will be credited to your account on the Site.
+					This can be used to pay your subsequent shopping bills.
+				</p>
+				<p>
+					That in the event if a non-delivery occurs on account of a mistake from your side (i.e. by providing wrong name or address or any other false information) any extra cost incurred by F2F for redelivery shall be claimed from you.
+				</p>
+
+			</MudText>
+			<MudButton Class="btn-right my-3" OnClick="Cancel">Ok</MudButton>
+
+		</MudContainer>
+
+	</DialogContent>
+	<DialogActions>
+	</DialogActions>
+</MudDialog>
+
+<style>
+	.text-align {
+		text-align: justify;
+	}
+
+	.btn-right {
+		float: right;
+		background-color: #ff7800;
+		color: white
+	}
+
+		.btn-right:hover {
+			background-color: white;
+			color: #ff7800
+		}
+
+	.heading {
+		color: #130f40 !important;
+		font-family: Impact, Haettenschweiler, sans-serif !important;
+	}
+
+		.heading span {
+			color: #ff7800;
+		}
+
+	body {
+		background-color: #fffdf7;
+	}
+
+	@@media (min-width: 360px) and (max-width: 767px) {
+		.heightdialog {
+			width: 90%;
+			max-height: 500px;
+		}
+	}
+
+	@@media (min-width: 279px) and (max-width: 359px) {
+		.heightdialog {
+			width: 90%;
+			max-height: 500px
+		}
+	}
+</style>
+
+@code {
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	void Cancel() => MudDialog.Cancel();
+}

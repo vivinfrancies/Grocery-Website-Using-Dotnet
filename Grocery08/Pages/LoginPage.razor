@@ -1,0 +1,487 @@
+﻿@inject IDialogService Dialog
+@inject ISnackbar Snackbar
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+
+@* LOGIN *@
+<div class="bgimg">
+    <MudDialog Class="DialogBox">
+        <DialogContent>
+            <MudContainer style="display: flex; justify-content: center;" hidden="@hiddenLogin" Class="LoginContent">
+                <MudGrid>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><h2 class="LoginHeading">Login</h2></MudItem>
+                    <MudDivider />
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading">Email<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Placeholder="eg.xyz@gmail.com" Variant="Variant.Outlined" Required="true" RequiredError="Email is Required" For="@(()=>log.LoginEmail)" /></MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading">Password<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12">
+                        <MudTextField @bind-Value="Password" Class="searchoutline" Placeholder="Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" Required="true" RequiredError="Password is Required" />
+                    </MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudLink OnClick="Forget"><small style="float: right;">Forget Password?</small></MudLink></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudButton FullWidth="true" Variant="Variant.Filled" Class="LoginButton"><MudIcon Icon="@Icons.Material.Filled.Login" />Login</MudButton></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="SignupLink">Don't have an account? <MudLink OnClick="Signup"><small>Signup</small></MudLink></MudItem>
+                </MudGrid>
+            </MudContainer>
+
+            @* SIGNUP *@
+
+            <MudContainer style="display: flex; justify-content: center;" hidden="@hiddenSignup">
+                <MudGrid>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><h2 class="SignupHeading">Signup</h2></MudItem>
+                    <MudDivider />
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading">Your Name<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Placeholder="Name" Variant="Variant.Outlined" Required="true"></MudTextField></MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading">Mobile Number<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Placeholder="Mobile Number" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentText="+91" For="@(()=>log.SignupMobilenumber)" Required="true"></MudTextField></MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading">Email<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Placeholder="Mail id" Variant="Variant.Outlined"></MudTextField></MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading">Password<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12">
+                        <MudTextField T="string" Placeholder="Password" Class="searchoutline" Variant="Variant.Outlined" InputType="InputType.Password" Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
+                                      RequiredError="Password is required!"></MudTextField>
+                    </MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading">Address<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Label="House no." Variant="Variant.Text"></MudTextField></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Label="Street Name" Variant="Variant.Text"></MudTextField></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Label="Pincode" Variant="Variant.Text"></MudTextField></MudItem>
+                    <MudItem lg="6" md="6" sm="12" xs="12"><MudTextField T="string" Class="searchoutline" Label="City" Variant="Variant.Text"></MudTextField></MudItem>
+
+                    <MudItem lg="6" md="6" sm="12" xs="12">
+                        <MudSelect T="string" Label="State" AnchorOrigin="Origin.BottomCenter" Class="searchoutline">
+                            <MudSelectItem Value="@("Tamilnadu")" />
+                            <MudSelectItem Value="@("Kerala")" />
+                            <MudSelectItem Value="@("Karanataka")" />
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12"><MudButton FullWidth="true" Class="SignupButton" Variant="Variant.Filled">Signup</MudButton></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="LoginLink">Already have an account? <MudLink OnClick="Login"><small>Login</small></MudLink></MudItem>
+                </MudGrid>
+            </MudContainer>
+
+            @* FORGET PASSWORD *@
+
+            <MudContainer style="display: flex; justify-content: center;" hidden="@hiddenForget" Class="ForgetPasswordContent">
+                <MudGrid>
+                    <MudItem lg="12" md="12" sm="12" xs="12"><h2 class="ForgetHeading">Forget Password</h2></MudItem>
+                    <MudDivider />
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading" hidden="@ShowEmail">Email<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12" hidden="@ShowEmail">
+                        <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+                            <MudTextField T="string" Class="searchoutline" Placeholder="eg.xyz@gmail.com" Variant="Variant.Outlined" Required="true" RequiredError="Fill the field" For="@(() => log.ForgetEmail)" />
+                        </MudForm>
+                    </MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12" hidden="@ShowEmail"><MudButton FullWidth="true" Variant="Variant.Filled" Disabled="@(!success)" Class="OtpButton" OnClick="OtpBtn">Generate OTP</MudButton></MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" hidden="@ShowOtp" Class="ContentHeading">Enter OTP<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="7" md="7" sm="12" xs="12" hidden="@ShowOtp"><MudTextField T="string" Class="searchoutline" @bind-Value="@log.ForgetOtp" Placeholder="OTP" Variant="Variant.Outlined" Required="true" RequiredError="Fill the field" /></MudItem>
+
+                    <MudItem lg="5" md="5" sm="12" xs="12" hidden="@ShowOtp"><MudButton OnClick="VerifyBtn" Class="Verify" Variant="Variant.Filled" FullWidth="true"><MudIcon Icon="@Icons.Material.Filled.DoneAll" />Verify</MudButton></MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading" hidden="@ShowPassword">New Password<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12" hidden="@ShowPassword">
+                        <MudTextField @bind-Value="Password0" Class="searchoutline" Placeholder="Password" Variant="Variant.Outlined" InputType="@PasswordInput0" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon0" OnAdornmentClick="ButtonTestclick0" AdornmentAriaLabel="Show Password" @ref="pwField1" Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength1))" Required="true"
+                                      RequiredError="Password is required!" />
+                    </MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="ContentHeading" hidden="@ShowPassword">Confirm Password<span style="padding:5px;color:red;">*</span></MudItem>
+                    <MudItem lg="12" md="12" sm="12" xs="12" hidden="@ShowPassword">
+                        <MudTextField @bind-Value="Password1" Class="searchoutline" Placeholder="Confirm Password" Variant="Variant.Outlined" InputType="@PasswordInput1" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon1" OnAdornmentClick="ButtonTestclick1" AdornmentAriaLabel="Show Password"
+                                      Validation="@(new Func<string, string>(PasswordMatch))"/>
+                    </MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" hidden="@ShowPassword">
+                        <MudButton Variant="Variant.Filled" FullWidth="true" Class="SaveButton" OnClick="save">save</MudButton>
+                    </MudItem>
+
+                    <MudItem lg="12" md="12" sm="12" xs="12" Class="LoginLink">Go back to login? <MudLink OnClick="Login"><small>Login</small></MudLink></MudItem>
+                </MudGrid>
+            </MudContainer>
+        </DialogContent>
+    </MudDialog>
+</div>
+
+@code {
+    loginpage log = new loginpage();
+}
+
+
+
+@* SIGNUP VALIDATION *@
+@code{
+    private IEnumerable<string> PasswordStrength(string SignupPassword)
+    {
+        if (string.IsNullOrWhiteSpace(SignupPassword))
+        {
+            yield return "Password is required!";
+            yield break;
+        }
+        if (SignupPassword.Length < 8)
+            yield return "Password must be at least of length 8";
+        if (!Regex.IsMatch(SignupPassword, @"[A-Z]"))
+            yield return "Password must contain at least one capital letter";
+        if (!Regex.IsMatch(SignupPassword, @"[a-z]"))
+            yield return "Password must contain at least one lowercase letter";
+        if (!Regex.IsMatch(SignupPassword, @"[0-9]"))
+            yield return "Password must contain at least one digit";
+    }
+}
+
+@* FORGET VALIDATION *@
+@code{
+    MudTextField<string> pwField1;
+
+    private IEnumerable<string> PasswordStrength1(string ForgetPassword)
+    {
+        if (string.IsNullOrWhiteSpace(ForgetPassword))
+        {
+            yield return "Password is required!";
+            yield break;
+        }
+        if (ForgetPassword.Length < 8)
+            yield return "Password must be at least of length 8";
+        if (!Regex.IsMatch(ForgetPassword, @"[A-Z]"))
+            yield return "Password must contain at least one capital letter";
+        if (!Regex.IsMatch(ForgetPassword, @"[a-z]"))
+            yield return "Password must contain at least one lowercase letter";
+        if (!Regex.IsMatch(ForgetPassword, @"[0-9]"))
+            yield return "Password must contain at least one digit";
+    }
+
+    private string PasswordMatch(string arg)
+    {
+        if (pwField1.Value != arg)
+            return "Passwords don't match";
+        return null;
+    }
+}
+
+
+@* FORGET PASSWORD *@
+
+@code {
+    bool success;
+    string[] errors = { };
+    MudForm form;
+    bool ShowEmail = false;
+    bool ShowOtp = true;
+    bool ShowPassword = true;
+
+    void OtpBtn()
+    {
+        ShowOtp = false;
+        Snackbar.Add("OTP send successfull.", Severity.Success);
+    }
+    void VerifyBtn()
+    {
+        if (log.ForgetOtp == "123456")
+        {
+            Snackbar.Add("OTP Verified Successfully", Severity.Success);
+            ShowEmail = true;
+            ShowPassword = false;
+            ShowOtp = true;
+        }
+        else if (log.ForgetOtp == null)
+        {
+            Snackbar.Add("OTP field is Empty", Severity.Error);
+        }
+        else
+        {
+            Snackbar.Add("Invalid OTP", Severity.Error);
+        }
+    }
+}
+
+@* SAVE *@
+
+@code{
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    void Cancel() => MudDialog.Cancel();
+    public void save(){
+        if (Password0 == Password1)
+        {
+            Cancel();
+            Snackbar.Add("New Password Updated", Severity.Success);     
+        }
+        else
+        {
+            Snackbar.Add("Password does not match", Severity.Error);
+        }
+    }
+}
+
+@* HIDE CODE *@
+
+@code {
+    bool hiddenLogin = false;
+    bool hiddenSignup = true;
+    bool hiddenForget = true;
+
+    public void Signup()
+    {
+        hiddenSignup = false;
+        hiddenLogin = true;
+        hiddenForget = true;
+    }
+
+    public void Forget()
+    {
+        hiddenSignup = true;
+        hiddenLogin = true;
+        hiddenForget = false;
+    }
+
+    public void Login()
+    {
+        hiddenSignup = true;
+        hiddenLogin = false;
+        hiddenForget = true;
+    }
+}
+
+@* LOGIN *@
+@code {
+    public string Password { get; set; }
+
+
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+}
+
+@* FORGET PASSWORD *@
+
+@code {
+
+    public string Password0 { get; set; }
+    public string Password1 { get; set; }
+
+    bool isShow0;
+    InputType PasswordInput0 = InputType.Password;
+    string PasswordInputIcon0 = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick0()
+    {
+        @if (isShow0)
+        {
+            isShow0 = false;
+            PasswordInputIcon0 = Icons.Material.Filled.VisibilityOff;
+            PasswordInput0 = InputType.Password;
+        }
+        else
+        {
+            isShow0 = true;
+            PasswordInputIcon0 = Icons.Material.Filled.Visibility;
+            PasswordInput0 = InputType.Text;
+        }
+    }
+
+    bool isShow1;
+    InputType PasswordInput1 = InputType.Password;
+    string PasswordInputIcon1 = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick1()
+    {
+        @if (isShow1)
+        {
+            isShow1 = false;
+            PasswordInputIcon1 = Icons.Material.Filled.VisibilityOff;
+            PasswordInput1 = InputType.Password;
+        }
+        else
+        {
+            isShow1 = true;
+            PasswordInputIcon1 = Icons.Material.Filled.Visibility;
+            PasswordInput1 = InputType.Text;
+        }
+    }
+}
+
+@* TOTAL *@
+<style>
+    .ContentHeading {
+        margin-bottom: -25px;
+        font-family: Calibri;
+        font-weight: 600;
+        font-size: larger;
+        color: #130f40 !important;
+    }
+
+    .searchoutline {
+        --mud-palette-primary: #ff7800;
+    }
+
+    @@media (max-width:600px) {
+        .DialogBox {
+            width: 85%;
+        }
+    }
+
+    @@media (min-width:601px) and (max-width:992px) {
+        .DialogBox {
+            width: 80%;
+        }
+    }
+
+    @@media (min-width:993px) {
+        .DialogBox {
+            width: 470px;
+        }
+
+        .LoginContent {
+            overflow: hidden;
+        }
+
+        .ForgetPasswordContent {
+            overflow: hidden;
+        }
+    }
+</style>
+
+
+@* LOGIN *@
+<style>
+    .LoginHeading {
+        text-align: center;
+        padding-top: 15px;
+        color: #130f40 !important;
+        font-family: Impact, Haettenschweiler, sans-serif !important;
+    }
+
+    .SignupLink {
+        text-align: center;
+        margin-bottom: 10px;
+        font-family: Arial;
+    }
+
+    .LoginButton {
+        background-color: #ff7800;
+        color: white;
+        margin-top: -5px;
+        float: right;
+        height: 45px;
+    }
+
+        .LoginButton:hover {
+            background-color: #fa6800;
+            color: white;
+        }
+
+    .bgimg {
+        background-image: url("logbg.jpg");
+        background-size: 100% 100%;
+        margin-top: -30px;
+    }
+</style>
+
+@* SIGNUP *@
+<style>
+    .SignupHeading {
+        text-align: center;
+        padding-top: 15px;
+        color: #130f40 !important;
+        font-family: Impact, Haettenschweiler, sans-serif !important;
+    }
+
+    .LoginLink {
+        text-align: center;
+        font-family: Arial;
+        margin-bottom: 10px;
+    }
+
+    .SignupButton {
+        background-color: #ff7800;
+        color: white;
+        margin-top: -7px;
+        float: right;
+        height: 45px;
+    }
+
+        .SignupButton:hover {
+            background-color: #fa6800;
+            color: white;
+        }
+
+    .AddressHeading {
+        padding-top: 25px;
+    }
+</style>
+
+@* FORGET PASSWORD *@
+<style>
+    .ForgetHeading {
+        text-align: center;
+        padding-top: 15px;
+        color: #130f40 !important;
+        font-family: Impact, Haettenschweiler, sans-serif !important;
+    }
+
+    .OtpButton {
+        background-color: #ff7800;
+        color: white;
+        height: 45px;
+    }
+
+        .OtpButton:hover {
+            background-color: #fa6800;
+            color: white;
+        }
+
+    .Verify {
+        background-color: #fa6800;
+        color: white;
+        height: 45px;
+        margin-top: 10px;
+    }
+
+        .Verify:hover {
+            background-color: #039e34;
+            color: white;
+        }
+
+    .SaveButton {
+        background-color: #ff7800;
+        color: white;
+        margin-top: -7px;
+        float: right;
+        height: 45px;
+    }
+
+        .SaveButton:hover {
+            background-color: #039e34;
+            color: white;
+        }
+
+</style>
+
+@* MEDIA *@
+
+<style>
+    @@media (max-width: 596px) {
+        .LoginButton, .SignupButtton, .CancelButton, .SaveButton, .Verify, .OtpButton {
+            height: 35px;
+        }
+    }
+</style>

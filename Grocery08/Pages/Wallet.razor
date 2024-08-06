@@ -1,0 +1,225 @@
+﻿@page "/wallet"
+
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+@* <MudItem Class="mt-15"> *@
+<MudContainer>
+	<MudGrid>
+		<MudItem lg="2"></MudItem>
+		<MudItem lg="8" sm="12" xs="12" md="12">
+			<MudPaper Class="walletpaper mt-5" Outlined="true" Square="true" >
+				@* <MudGrid Class="mt-4">
+					<MudItem lg="1"></MudItem>
+					<MudItem lg="0">
+						<MudIcon Icon="@Icons.Material.Filled.Payment" Title="Wallet" Size="Size.Large"></MudIcon>
+					
+					</MudItem>
+					<MudItem lg="3">
+						<MudText Typo="Typo.h6"> My Wallet</MudText>
+					</MudItem>
+                </MudGrid> *@
+				<MudGrid>
+					<MudItem lg="12" sm="12" xs="12" md="12">
+						<MudText Typo="Typo.h4" Class="d-flex justify-content-center align-content-center walletheading"> My<span class="ml-2 Wallet">Wallet</span></MudText>
+					</MudItem>
+                </MudGrid>
+				<MudGrid>
+					<MudItem lg="12" sm="12" xs="12" md="12">
+						<MudContainer>
+							<MudTextField T="int" Label="Wallet Balance:"  Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.CurrencyRupee" Variant="Variant.Outlined" ReadOnly="true"  Class="searchoutline"/>
+						</MudContainer>
+					</MudItem>
+				</MudGrid>
+				@* <MudGrid>
+					<MudItem lg="1"></MudItem>
+					<MudItem lg="3">
+						<MudText>Add Money</MudText>
+					</MudItem>
+				</MudGrid> *@
+				<MudGrid>
+					<MudItem lg="12" sm="12" xs="12" md="12">
+						<MudContainer>
+							<MudTextField T="string" Label="Add Money" @bind-Value="@addmoney" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.CurrencyRupee" Class="searchoutline" />
+							
+							</MudContainer>
+					</MudItem>
+				</MudGrid>
+				<MudGrid>
+					<MudItem lg="12" sm="12" xs="12" md="12">
+						<MudContainer>
+						<MudStack>
+
+								<MudToggleGroup T="string" SelectionMode="SelectionMode.SingleSelection" @bind-Value="addmoney" Color="Color.Warning"  FixedContent>
+								<MudToggleItem Value="@("1000")" Text="1000" />
+								<MudToggleItem Value="@("2000")" Text="2000" />
+								<MudToggleItem Value="@("3000")" Text="3000" />
+								<MudToggleItem Value="@("4000")" Text="4000" />
+								<MudToggleItem Value="@("5000")" Text="5000" />
+							</MudToggleGroup>
+						</MudStack>
+						</MudContainer>
+					</MudItem>
+				</MudGrid>
+				<MudGrid Class="mt-2">
+					<MudItem lg="12">
+						<MudContainer> 
+						<MudText Typo="Typo.subtitle1">Add a minimum of ₹100.</MudText>
+						</MudContainer>
+
+					</MudItem>
+				
+				</MudGrid>
+				<MudContainer>
+				<MudDivider />
+				</MudContainer>
+				<MudGrid Class="mt-3">
+					<MudItem lg="12">
+						<MudContainer>
+							<MudItem lg="12">
+									<MudText Typo="Typo.subtitle1">Payment Gateway(<Span Class="highlighter"><MudIcon Icon="@Icons.Material.Filled.Payments" />UPI/<MudIcon Icon="@Icons.Material.Filled.OtherHouses" />Net-Banking/<MudIcon Icon="@Icons.Material.Filled.Payment" />Debit & Credit-Card)</Span></MudText>
+							</MudItem>
+						
+							</MudContainer>
+					</MudItem>
+				</MudGrid>
+				<MudGrid>
+					<MudItem lg="12" sm="12" xs="11" md="12">
+						<MudContainer>
+						<MudForm>
+							 <MudRadioGroup @bind-SelectedOption="@paymentchoosen">
+                                    <MudRadio Color="Color.Warning" Value="@("Radio1")"><MudImage Class="paymentimagesize" Src="/img/pgw/instamojo2.png" /></MudRadio>
+										<MudRadio Style="margin-left:3px;" Color="Color.Warning" Value="@("Radio2")" ><MudImage Class="paymentimagesize" Src="/img/pgw/razorpay.png" /></MudRadio>
+			          </MudRadioGroup>
+						</MudForm>
+							</MudContainer>
+					</MudItem>
+				</MudGrid>
+					<MudContainer>
+						<MudDivider />
+					</MudContainer>
+					<br />
+					<MudGrid>
+						<MudItem lg="4" sm="8" xs="2" md="4"></MudItem>
+						<MudItem lg="4" sm="4" xs="8" md="6" Class="d-flex justify-content-center">
+						<MudButton Variant="Variant.Filled" Class="btn-right" OnClick="reset">ADD MONEY</MudButton>
+							
+							</MudItem>
+						<MudItem lg="4" sm="8" xs="2" md="4"></MudItem>
+
+					</MudGrid>
+
+					<br />
+			
+				
+			
+		
+			</MudPaper>
+		</MudItem>
+		<MudItem lg="2"></MudItem>
+    </MudGrid>
+</MudContainer>
+@* <MudGrid Class="mt-10">
+	<MudItem lg="2"></MudItem>
+		<MudItem lg="8" sm="12" xs="12" md="12">
+			<MudPaper>
+				<MudGrid>
+					<MudItem lg="6" sm="6" xs="12" md="6">
+						<MudLink Class="bottomalign">View Wallet Recharge History</MudLink>
+					</MudItem>
+					<MudItem lg="6" sm="6" xs="12" md="6">
+						<MudLink Class="bottomalign">View Wallet Recharge History</MudLink>
+					</MudItem>
+				</MudGrid>
+			</MudPaper>
+		</MudItem>
+</MudGrid> *@
+<br />
+@* </MudItem> *@
+<style>
+	.walletheading{
+		color: #130f40 !important;
+		font-family: Impact, Haettenschweiler, sans-serif !important;
+	}
+
+	.Wallet {
+		color: #ff7800;
+	}
+	.walletpaper{
+		background-color: white;
+		border-radius:8px;
+		
+	}
+
+	.highlighter{
+		background-color:aliceblue;
+	}
+
+	.paymentimagesize{
+		height:auto;
+		width:80px;
+		/* margin-left:-12px; */
+	}
+
+	.bottomalign{
+		margin-left:40px;
+	}
+
+	.searchoutline {
+		--mud-palette-primary: #ff7800;
+	}
+	@@media (max-width:500px){
+		.paymentimagesize {
+			height: auto;
+			width: 70px;
+		}
+	}
+
+	@@media (max-width:350px) {
+		.paymentimagesize {
+			height: auto;
+			width: 50px;
+		}
+	}
+	
+	.btn-right {
+		float: right;
+		background-color: #ff7800;
+		color: white
+	}
+
+		.btn-right:hover {
+			border: 1px solid #ff7800;
+			background-color: white;
+			color: #ff7800
+		}
+</style>
+@code {
+
+	private string addmoney = "1000";
+	public string paymentchoosen { get; set; }
+	@code {
+		radiobutton obj = new radiobutton();
+		public string c;
+		public string d;
+		void reset()
+		{
+			if (paymentchoosen == "Radio1" && addmoney != "")
+			{
+				NavigationManager.NavigateTo("/Instamojo");
+			}
+			else if (paymentchoosen == "Radio2" && addmoney != "")
+			{
+				NavigationManager.NavigateTo("/Razorpay");
+			}
+			else
+			{
+				
+				Snackbar.Add("Choose any Payment path", Severity.Error);
+			}
+		
+
+		}
+	}
+
+}

@@ -1,0 +1,87 @@
+﻿<MudDialog Class="heightdialog">
+	<DialogContent>
+		<MudContainer Fixed="true">
+			<MudText Typo="Typo.h4" Class="mb-3 heading">
+				Why <span>FarmzToFamiliez</span> (F2F)
+			</MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align">
+				<p>
+					FarmzToFamiliez (F2F) is a one stop food store started by a Mom and Daughter duo who fell in love with homemade batters. Their mission is to revive the traditional dishes that they enjoyed in their childhood.
+					Belonging to a typical South Indian family, our Founders have a strong palate for authentic South Indian foods such as dosas, chutneys and so on.
+				</p>
+				<p>
+					When you run out of all your batters on a hectic day, either you have to grind it again or rush to a restaurant to have your favorite food. There is no in between way to relish in the warmth of homemade delicacies in the modern world.
+					This is the igniting force behind the team of F2F. We have 20 varieties of wellness batters including both traditional batters and contemporary batters that can be customized according to customer segment ( keto batters, high protein batter). We delivery freshly ground instant healthy batters and chutneys at your doorstep every morning before 8 am.
+					You are spoiled for choices here at F2F, because we have got so many healthy eating options for you.
+				</p>
+				<p>If you are from Bangalore please connect with our admins to start delivery at your apartment via Whatsapp only.</p>
+
+			</MudText>
+			<MudText Typo="Typo.subtitle2">
+				Please Contact:
+			</MudText>
+			<MudText Typo="Typo.body2">
+				Arwa - <MudLink>63622 22740 </MudLink>
+			</MudText>
+			<MudText Typo="Typo.body2">
+				Fatema - <MudLink>70222 37584 </MudLink>
+			</MudText>
+			<MudButton Class="btn-right my-3" OnClick="Cancel">Ok</MudButton>
+
+		</MudContainer>
+
+	</DialogContent>
+	<DialogActions>
+	</DialogActions>
+</MudDialog>
+
+<style>
+	.text-align {
+		text-align: justify;
+	}
+
+	.btn-right {
+		float: right;
+		background-color: #ff7800;
+		color: white
+	}
+
+		.btn-right:hover {
+			background-color: white;
+			color: #ff7800
+		}
+
+	body {
+		background-color: #fffdf7;
+	}
+
+	.heading {
+		color: #130f40 !important;
+		font-family: Impact, Haettenschweiler, sans-serif !important;
+	}
+
+		.heading span {
+			color: #ff7800;
+		}
+
+
+	@@media (min-width: 360px) and (max-width: 767px) {
+		.heightdialog {
+			width: 90%;
+			max-height: 500px;
+		}
+	}
+
+	@@media (min-width: 279px) and (max-width: 359px) {
+		.heightdialog {
+			width: 90%;
+			max-height: 500px
+		}
+	}
+</style>
+
+@code {
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	void Cancel() => MudDialog.Cancel();
+}

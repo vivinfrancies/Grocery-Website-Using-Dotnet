@@ -1,0 +1,628 @@
+﻿@using Grocery08.Pages
+@inherits LayoutComponentBase
+@inject IDialogService Dialog
+@inject IDialogService DialogService
+@inject NavigationManager _navigationManager
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout>
+    @* Appbar *@
+    <MudAppBar Class="navbar-color " Fixed="true" Elevation="0">
+
+
+        <MudImage Src="/img/logo.png"></MudImage>
+        <MudSpacer />
+        <div class="toggle-button">
+            <MudIconButton Class="icon-clr" Icon="@Icons.Material.Filled.Menu" OnClick="@((e)=>ToggleDrawer(Anchor.Right))"></MudIconButton>
+        </div>
+        <div class="content">
+            <MudSpacer />
+
+            <MudMenu Label="Home" href="/" Color="Color.Primary" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="mx-5 d-flex navbutton">
+                <MudItem Class="dropbarsection">
+                    <MudMenuItem Class="sectionhover" Href="/">Best Seller</MudMenuItem>
+                    <MudMenuItem Class="sectionhover" Href="/">Category</MudMenuItem>
+                    <MudMenuItem Class="sectionhover" Href="/">Recipe</MudMenuItem>
+                    <MudMenuItem Class="sectionhover" Href="/">Testimonial</MudMenuItem>
+                </MudItem>
+            </MudMenu>
+
+            <MudMenu Label="Product" href="/product" Color="Color.Primary" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="mx-5 d-flex navbutton">
+                <MudItem Class="dropbarsection">
+                    <MudMenuItem Class="sectionhover" Href="/product">List</MudMenuItem>
+                    <MudMenuItem Class="sectionhover" Href="/product">Combo & Offer</MudMenuItem>
+                </MudItem>
+            </MudMenu>
+
+            <MudButton Href="/wishlist" Class="px-5 d-flex navbutton">
+                Wishlist
+            </MudButton>
+            <MudBadge Content="1" Color="Color.Primary" Style="--mud-palette-primary: #ff7800;" Overlap="true" Class="mx-6 my-4">
+                <MudButton Href="/addtocart" OnClick="@(() => OpenDrawer(Anchor.End))" Class="px-5 d-flex navbutton">
+                    Cart
+                </MudButton>
+            </MudBadge>
+
+            <MudButton href="/wallet" Label="Wallet" Class="px-5 d-flex navbutton">
+                Wallet
+            </MudButton>
+
+            <MudSpacer />
+
+            <MudItem>
+                <MudAutocomplete Class="searchoutline" Margin="Margin.Dense" T="string" Placeholder="Search" Variant="Variant.Outlined" @bind-Value="value2" SearchFunc="@Search2" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Dark" />
+            </MudItem>
+
+            <MudTooltip Text="Profile" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton Style="background-color:transparent;" Href="/Profile"><MudIcon Class="icon-clr" Icon="@Icons.Material.Filled.AccountBox" Size="Size.Small" /></MudIconButton>
+            </MudTooltip>
+
+            <MudTooltip Text="Login" Arrow="true" Placement="Placement.Bottom">
+                <MudIconButton OnClick="@((e) => OpenDialog(closeButton))"> <MudIcon Class="icon-clr" Icon="@Icons.Material.Filled.Login" Size="Size.Small"></MudIcon></MudIconButton>
+            </MudTooltip>
+
+        </div>
+
+    </MudAppBar>
+    <MudItem Class="mblsearch mt-14" hidden="@searchbutton">
+        <MudAppBar Class="mblsearchbg mt-14" Dense="true" Elevation="2">
+            <MudAutocomplete Class="searchoutline px-5 py-5" Margin="Margin.Dense" T="string" Placeholder="Search" Variant="Variant.Outlined" @bind-Value="value2" SearchFunc="@Search2" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Dark" />
+        </MudAppBar>
+    </MudItem>
+   
+
+
+    <MudDrawer @bind-Open="@IsDrawerOpen" Anchor="@click" Class="drawer-text navbar-color" Variant="@DrawerVariant.Temporary">
+
+        <MudItem Class="d-flex align-content-center justify-content-center">
+            <MudAvatar Size="Size.Medium" Class="mt-2">
+                <MudImage Src="/img/blog/blog01.jpg"></MudImage>
+            </MudAvatar>
+        </MudItem>
+        <MudItem Class="mt-2">
+            <MudText Typo="Typo.body2" Class="mud-text-secondary d-flex align-content-center justify-content-center">Hello! User</MudText>
+        </MudItem>
+        <MudItem>
+            <MudDivider Class="my-2" />
+        </MudItem>
+        <MudNavLink Href="/" Class="mx-2 icon-clr" Icon="@Icons.Material.Filled.Home" IconColor="Color.Inherit" Size="Size.Small">
+            <MudText Typo="Typo.body2">Home</MudText>
+        </MudNavLink>
+
+        <MudNavLink Href="/profile" Class="mx-2 icon-clr" Icon="@Icons.Material.Filled.AccountBox" IconColor="Color.Inherit" Size="Size.Small">
+            <MudText Typo="Typo.body2">Profile</MudText>
+        </MudNavLink>
+
+        <MudNavLink Href="/product" Class="mx-2 icon-clr" Icon="@Icons.Material.Filled.ShoppingBasket" IconColor="Color.Inherit" Size="Size.Small">
+            <MudText Typo="Typo.body2">Product</MudText>
+        </MudNavLink>
+
+        <MudNavLink Href="/wishlist" Class="mx-2 icon-clr" Icon="@Icons.Material.Filled.Favorite" IconColor="Color.Inherit" Size="Size.Small">
+            <MudText Typo="Typo.body2">Wishlist</MudText>
+        </MudNavLink>
+
+        <MudNavLink Href="/addtocart" Class="mx-2 icon-clr" Icon="@Icons.Material.Filled.ShoppingCart" IconColor="Color.Inherit" Size="Size.Small">
+            <MudText Typo="Typo.body2">Cart</MudText>
+        </MudNavLink>
+
+
+
+        <MudNavLink Href="/wallet" Class="mx-2 icon-clr" Icon="@Icons.Material.Filled.AccountBalanceWallet" IconColor="Color.Inherit" Size="Size.Small">
+            <MudText Typo="Typo.body2">Wallet</MudText>
+        </MudNavLink>
+
+
+        <MudNavLink OnClick="@((e) => OpenDialog(closeButton))" Class="mx-2 icon-clr" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit" Size="Size.Small">
+            <MudText Typo="Typo.body2">Login</MudText>
+        </MudNavLink>
+
+    </MudDrawer>
+
+    <MudMainContent>
+
+        @Body
+
+        @* Scrool to top *@
+        <MudScrollToTop Class="scroll-top" ScrollBehavior="ScrollBehavior.Auto">
+            <MudFab Class="scrollbg scrollicon" StartIcon="@Icons.Material.Filled.ArrowCircleUp" />
+        </MudScrollToTop>
+
+        @* footer *@
+        <MudItem Class="footer-top mt-10"> 
+            <MudPaper Class="footer1">
+                <MudContainer>
+                    <MudItem lg="12"></MudItem>
+                    <MudGrid>
+
+                        <MudItem xs="12" sm="6" md="6" lg="3">
+                            <MudText Typo="Typo.h4" Class="brandname11">FARMZ<span Class="brandname2"> FAMILIES</span></MudText><br />
+                            <p style="color:black;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                        </MudItem>
+
+                        <MudItem xs="12" sm="6" md="6" lg="3">
+                            <MudText Typo="Typo.h6" Class="Supporttext">SUPPORT</MudText><br /
+                            <NavLink class="link" @onclick="OpenPrivacy"><MudIcon Icon="@Icons.Material.Filled.ArrowRight" />FAQ's</NavLink><br />
+                            <NavLink class="link" @onclick="OpenPrivacy"><MudIcon Icon="@Icons.Material.Filled.ArrowRight" />Privacy Policy</NavLink><br />
+                            <NavLink class="link" @onclick="OpenTerm"><MudIcon Icon="@Icons.Material.Filled.ArrowRight" />Terms & Condition</NavLink><br />
+                            <NavLink class="link" @onclick="OpenWhy"><MudIcon Icon="@Icons.Material.Filled.ArrowRight" />Why Us ?</NavLink><br />
+                            <NavLink class="link" @onclick="OpenWhy"><MudIcon Icon="@Icons.Material.Filled.ArrowRight" />Blog</NavLink><br />
+                            <NavLink class="link" @onclick="OpenAbout"><MudIcon Icon="@Icons.Material.Filled.ArrowRight" />About Us</NavLink><br />
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="6" lg="3">
+                            <MudText Typo="Typo.h6" Class="Supporttext">PHONE</MudText><br /
+                            <NavLink class="link" Href="tel:+4733378901"><MudIcon Icon="@Icons.Material.Filled.Phone" Style="color:#130f40;" /> +91 96677-46344</NavLink><br />
+
+                            <MudText Typo="Typo.h6" Class="Supporttext mt-3">E-Mail</MudText><br /
+                            <NavLink class="link" Href="mailto:someone@example.com"><MudIcon Icon="@Icons.Material.Filled.Email" Style="color:#130f40;" />  contact@burgry.com</NavLink><br />
+                        </MudItem>
+                        <MudItem xs="12" sm="6" md="6" lg="3">
+                            <MudText Typo="Typo.h6" Class="Supporttext">Address</MudText><br /
+                            <NavLink class="link"><MudIcon Icon="@Icons.Material.Filled.MyLocation" Style="color:#130f40;" />  Jl. Pantai Kuta No. 34, Badung, Bali.</NavLink><br />
+                            <MudText Typo="Typo.h6" Class="Supporttext mt-3">Follow Us</MudText><br /
+                            <NavLink Href="/"><MudIcon Icon="@Icons.Custom.Brands.WhatsApp" Color="Color.Success" Size="Size.Medium" /></NavLink>
+                            <NavLink Href="https://www.facebook.com/your-facebook-page"><MudIcon Icon="@Icons.Custom.Brands.Facebook" Color="Color.Primary" Size="Size.Medium" Class="mx-2" /></NavLink>
+                            <NavLink Href="https://www.instagram.com/"><MudIcon Icon="@Icons.Custom.Brands.Instagram" Color="Color.Secondary" Size="Size.Medium" /></NavLink>
+                            <NavLink Href="https://twitter.com/?lang=en"><MudIcon Icon="@Icons.Custom.Brands.X" Color="Color.Dark" Size="Size.Small" Class="mx-2" /></NavLink>
+                            <NavLink Href="https://www.youtube.com/"><MudIcon Icon="@Icons.Custom.Brands.YouTube" Color="Color.Error" Size="Size.Medium" /></NavLink>
+
+                        </MudItem>
+
+                        <MudDivider />
+
+                        <MudItem>
+                            <MudText Class="footerfinal">Burger Template Kit</MudText>
+                        </MudItem>
+                        <MudSpacer />
+                        <MudItem>
+                            <MudText Class="footerfinal">Copyright © 2024. All rights reserved.</MudText>
+                        </MudItem>
+
+                    </MudGrid>
+                </MudContainer>
+            </MudPaper>
+
+            @* bottom appbar *@
+            <div class="bottombar">
+                <MudAppBar Class="navbar-color" Fixed="true" Bottom=true Elevation="0">
+                    <MudSpacer />
+                    <MudButton Href="/"><MudIcon Class="icon-clr" Icon="@Icons.Material.Filled.Home" Size="Size.Small" /></MudButton>
+
+                    <MudButton OnClick="searchbtn"><MudIcon Class="icon-clr" Icon="@Icons.Material.Filled.Search" Size="Size.Small" /></MudButton>
+
+                    <MudButton Href="/addtocart"><MudIcon Class="icon-clr" Icon="@Icons.Material.Filled.ShoppingCart" Size="Size.Small" /></MudButton>
+
+                    <MudSpacer />
+                </MudAppBar>
+            </div>
+        </MudItem>
+
+    </MudMainContent>
+
+    @* Add to cart drawer start *@
+    <MudDrawer @bind-Open="@open" Width="@width" Height="@height" Anchor="@anchor" Elevation="1" Variant="@DrawerVariant.Temporary">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">My Cart</MudText>
+        </MudDrawerHeader>
+        <MudGrid Class="emptycart" hidden="@emptcart">
+            <MudItem lg="12" md="12" sm="12" Class="d-flex align-content-center justify-content-center">
+                <MudImage Class="CartImage" Src="img/empty-cart.png" />
+            </MudItem>
+            <MudItem lg="12" md="12" sm="12" Class="d-flex align-content-center justify-content-center">
+                <MudButton Variant="Variant.Filled" Class="CartButton mb-7" Href="/">Continue Shopping</MudButton>
+            </MudItem>
+        </MudGrid>
+        <MudCard Class="mx-3 cartitems" hidden="@cartitems">
+            <MudGrid>
+                <MudItem lg="4" md="4">
+                    <MudImage Src="img/sku/f2f-coconut-oil-cold-pressed.jpg" Class="cartimage" />
+                </MudItem>
+                <MudItem lg="8" md="8">
+                    <MudGrid Class="mx-2">
+                        <MudItem lg="8" md="8" sm="8" Class="my-3">
+                            <MudText>Coconut oil</MudText>
+                        </MudItem>
+                        <MudItem lg="4" md="4" sm="4">
+                            <MudIconButton Icon="@Icons.Material.Filled.Close" OnClick="cartclose" />
+                        </MudItem>
+                        <MudItem lg="12" md="12" sm="12">
+                            <MudText Class="my-1"> 
+                                Price:₹ @sum
+                            </MudText>
+                            <MudButtonGroup Variant="Variant.Outlined" Style="border-width:1px ;border-color:#ff7800; width: 150px; height: 40px;">
+                                <MudButton Style="color:#ff7800; border:hidden;" OnClick="@decrases">-</MudButton>
+                                <MudSpacer></MudSpacer>
+                                <MudText Color="Color.Inherit" Style="align-content:center; text-align:center; color:#ff7800">@productcount</MudText>
+                                <MudSpacer></MudSpacer>
+                                <MudButton Style="color:#ff7800; border:hidden;" OnClick="@increase" Class="inc">+</MudButton>
+                            </MudButtonGroup>
+
+                        </MudItem>
+                    </MudGrid>
+
+                </MudItem>
+            </MudGrid>
+        </MudCard>
+        <MudCard Class="my-5 mx-5" hidden="@cartitems">
+            <MudGrid Class="mx-3 my-3">
+                <MudItem lg="8" md="8" sm="8">
+                    <MudText>Item Total(@productcount)</MudText>
+                </MudItem>
+                <MudItem lg="4" md="4" sm="4">
+                    <MudText>₹@sum</MudText>
+                </MudItem>
+                <MudItem lg="8" md="8" sm="8">
+                    <MudText>Delivery Fee</MudText>
+                </MudItem>
+                <MudItem lg="4" md="4" sm="4">
+                    <MudText>₹0 <strike>₹25</strike></MudText>
+                </MudItem>
+                @* <MudItem lg="8" md="8" sm="8">
+                    <MudText>Handling Fee</MudText>
+                </MudItem>
+                <MudItem lg="4" md="4" sm="4">
+                    <MudText>₹</MudText>
+                </MudItem> *@
+                <MudDivider />
+                <MudItem lg="8" md="8" sm="8">
+                    <MudText><strong>To Pay</strong></MudText>
+                </MudItem>
+                <MudItem lg="4" md="4" sm="4">
+                    <MudText><strong>₹@sum</strong></MudText>
+                </MudItem>
+            </MudGrid>
+        </MudCard>
+           
+           
+        <MudSpacer />
+            <MudButton Href="/addtocart"> view cart</MudButton>
+
+       
+    </MudDrawer>
+    @* Add to cart drawer end *@
+</MudLayout>
+
+
+@code {
+    public bool emptcart = true;
+    public bool cartitems = false;
+    public bool showcart = false;
+    public bool newcart = true;
+    public int productcount = 1;
+    public int productprice = 1000;
+
+
+    //cart close in drawer
+    public void cartclose()
+    {
+        emptcart = false;
+        cartitems = true;
+    }
+
+    public void addtobasket()
+    {
+        showcart = true;
+        newcart = false;
+    }
+
+
+    // To Decrease
+
+
+    public int sum=1000;
+    // To Increase
+    public void increase()
+    {
+
+        productcount++;
+        sum = productprice * productcount;
+    }
+    public void decrases()
+    {
+        if (productcount == 1)
+        {
+            emptcart = false;
+            cartitems = true;
+            showcart = false;
+            newcart = true;
+            productcount = 1;
+          
+        }
+        else{
+
+              productcount--;
+            sum = productprice * productcount;
+        }
+    }
+
+
+    public void reviewdialogue()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, Position = DialogPosition.TopCenter, MaxWidth = MaxWidth.Medium, FullWidth = true, ClassBackground = "dialogueclass" };
+
+        DialogService.Show<ReviewPage>("Review Product", options);
+    }
+
+}
+
+
+    @* Add to cart drawer start *@
+@code {
+    bool open;
+    Anchor anchor;
+    string width, height;
+
+    void OpenDrawer(Anchor anchor)
+    {
+        open = true;
+        this.anchor = anchor;
+
+        switch (anchor)
+        {
+            
+            case Anchor.End:
+                width = "500px";
+                height = "100%";
+                break;
+            
+        }
+    }
+}
+    @* Add to cart drawer end *@
+
+<style>
+    .footer1 {
+        background-color: #f3f3f3;
+    }
+
+    .brandname2 {
+        color: #ff7800;
+    }
+
+    .brandname11 {
+        color: #130f40;
+        font-family: Impact;
+    }
+
+    .Supporttext {
+        font-family: Impact;
+        color: #130f40;
+    }
+
+    .Supportitemtext {
+        color: #130f40;
+    }
+
+    .contactlogo {
+        color: #ff7800;
+        margin: 5px;
+    }
+
+    .navbutton {
+        --mud-palette-primary: black;
+        color: black;
+    }
+
+        .navbutton:hover {
+            --mud-palette-primary: #ff7800;
+            color: #ff7800;
+        }
+
+    .dropbarsection {
+        background-color: white;
+        color: black;
+        position: fixed;
+    }
+
+    .sectionhover:hover {
+        background-color: #ff7800;
+        color: white;
+    }
+    .cartimage{
+      height: auto;
+    width: 170px;
+}
+    }
+    .mblsearch {
+        margin-right: 10%;
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .mblsearchbg {
+        background-color: #f3f3f3;
+    }
+    .searchbar {
+        margin-top: 1px !important;
+        max-width: 100px;
+    }
+
+    .iconcolornav {
+        color: black;
+    }
+
+    iconcolornav:hover {
+        color: #ff7800;
+    }
+
+    .searchoutline {
+        --mud-palette-primary: #ff7800;
+    }
+
+    .link {
+        color: #130f40;
+    }
+
+        .link:hover {
+            color: #ff7800;
+            cursor: pointer;
+        }
+
+    .footer-color {
+        background-color: #130f40;
+        border-radius: 0px;
+    }
+
+    .navbar-color {
+        background-color: #f3f3f3;
+    }
+
+    .icon-clr {
+        color: #130f40 !important;
+    }
+
+    .scrollicon {
+        color: #130f40;
+    }
+
+    .scrollbg {
+        background-color: #f3f3f3;
+    }
+
+    .btn-color {
+        background-color: #f3f3f3;
+    }
+
+    .footer-text {
+        color: white;
+    }
+
+    .navbar-text {
+        color: #130f40;
+    }
+
+    .drawer-text {
+        color: #130f40;
+    }
+
+    .navbar-text:hover {
+        color: #ff7800;
+    }
+
+    .scroll-top {
+        margin-bottom: 55px;
+    }
+
+    @@media (max-width: 992px) {
+        .toggle-button {
+            display: contents !important;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .bottombar {
+            display: contents;
+            overflow-x: hidden;
+        }
+
+        .footer-top {
+            margin-bottom: 55px;
+        }
+    }
+
+
+
+    @@media (min-width: 992px) {
+        .toggle-button {
+            display: none !important;
+        }
+
+        .content {
+            display: contents;
+        }
+
+
+        .bottombar {
+            display: none;
+            overflow-x: hidden;
+        }
+    }
+
+   
+</style>
+
+@code {
+    public bool searchbutton = true;
+    public void searchbtn()
+    {
+        searchbutton = !searchbutton;
+    }
+    bool IsDrawerOpen { get; set; }
+    Anchor click;
+    void ToggleDrawer(Anchor click)
+    {
+        IsDrawerOpen = !IsDrawerOpen;
+        this.click = click;
+
+    }
+
+    public bool _isOpen = false;
+
+    public void ToggleOpen()
+    {
+        if (_isOpen)
+            _isOpen = false;
+        else
+            _isOpen = true;
+    }
+    public void OpenAbout()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<About>("", options);
+    }
+    public void OpenWhy()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<Why>("", options);
+    }
+    public void OpenTerm()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<TnC>("", options);
+    }
+    public void OpenPrivacy()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<Privacy>("", options);
+    }
+}
+
+
+@* LOGIN *@
+@code {
+
+    DialogOptions closeButton = new DialogOptions() { CloseButton = true };
+    private void OpenDialog(DialogOptions options)
+    {
+        Dialog.Show<LoginPage>("", options);
+    }
+}
+
+@code {
+    private string value2;
+    List<search> state = new List<search>
+    {
+        new search{name="Product", link="/product"},
+        new search{name="Wallet", link="/wallet"},
+        new search{name="Home", link="/"},
+    };
+
+    public string a;
+    private async Task<IEnumerable<string>> Search2(string value)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5);
+
+        // if text is null or empty, don't return values (drop-down will not open)
+        if (string.IsNullOrEmpty(value))
+            return new string[0];
+        return state
+            .Where(x => x.name.Contains(value, StringComparison.InvariantCultureIgnoreCase))
+            .Select(x => x.name);
+
+    }
+}

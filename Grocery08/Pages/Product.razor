@@ -1,0 +1,1448 @@
+﻿@page "/products"
+
+@using MudBlazor
+@using System.Collections.Generic
+@using System.Linq
+@using Grocery08
+
+
+<h3 class="productheading"><span style="color:#130f40">Category</span> List</h3>
+<MudContainer>
+    <MudCarousel Class="carouseltop" ShowArrows="false" ShowBullets="true" EnableSwipeGesture="true" AutoCycle="false" TData="object">
+        @{
+            var chunkSize = 4;
+            var chunks = items.ChunkBy(chunkSize);
+        }
+
+        @foreach (var chunk in chunks)
+        {
+            <MudCarouselItem>
+                <MudGrid>
+                    @foreach (var item in chunk)
+                    {
+                        <MudItem style="align-content:center;justify-content:center;display:flex;width:90%" lg="3">
+                            <MudCard onclick="@(() => cardclick(item.id))" Class="categorycard">
+                                <MudImage Class="categoryimages" Src="@item.ImageSrc"></MudImage>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </MudCarouselItem>
+        }
+    </MudCarousel>
+</MudContainer>
+
+
+<MudContainer>
+    <MudCarousel Class="carouselmiddle" ShowArrows="false" ShowBullets="true" EnableSwipeGesture="true" AutoCycle="false" TData="object">
+        @{
+            var chunkSize = 3;
+            var chunks = items.ChunkBy(chunkSize);
+        }
+
+        @foreach (var chunk in chunks)
+        {
+            <MudCarouselItem>
+                <MudGrid>
+                    @foreach (var item in chunk)
+                    {
+                        <MudItem style="align-content:center;justify-content:center;display:flex;width:90%" md="4" sm="4">
+                            <MudCard onclick="@(() => cardclick(item.id))" Class="categorycard">
+                                <MudImage Class="categoryimages" Src="@item.ImageSrc"></MudImage>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </MudCarouselItem>
+        }
+    </MudCarousel>
+</MudContainer>
+
+
+<MudCarousel Class="carouselsmall" ShowArrows="false" ShowBullets="true" EnableSwipeGesture="true" AutoCycle="false" TData="object">
+    @{
+        var chunkSize = 1;
+        var chunks = items.ChunkBy(chunkSize);
+    }
+
+    @foreach (var chunk in chunks)
+    {
+
+        <MudCarouselItem>
+            <MudGrid>
+                @foreach (var item in chunk)
+                {
+                    <MudItem style="align-content:center;justify-content:center;display:flex;width:90%" xs="12">
+                        <MudCard onclick="@(() => cardclick(item.id))" Class="categorycard">
+                            <MudImage Class="categoryimages" Src="@item.ImageSrc"></MudImage>
+                        </MudCard>
+                    </MudItem>
+                }
+            </MudGrid>
+        </MudCarouselItem>
+    }
+</MudCarousel>
+
+
+<MudContainer>
+    <MudPaper Class="categoryoffers">
+        <span><marquee class="marqueestyle" direction="left">Grocery Shopping all kind of products availabe from kitchen to traditional Oils. Hurry Up! Offer is Live.</marquee></span>
+        <MudText Class="d-flex justify-content-center categoryheading"><span><span style="color:black">Offer</span> & Combos</span></MudText>
+        <MudImage Class="offerimg" Src="/img/category/offer.png"></MudImage>
+
+        <MudContainer Class="mt-5">
+            <MudGrid>
+                <MudItem lg="6" md="12" sm="12" xs="12">
+                    <MudGrid>
+                        <MudItem Class="offerrow" lg="6" md="6" sm="6" xs="12">
+                            <MudCard Class="offercard">
+                                <MudImage Src="/img/sku/f2f-homemade-rasam-powder.jpg" Alt="img" Class="castoroilimg"></MudImage>
+                                <MudText Class="product mx-3" style="font-weight:400;">Kitchen Essentils</MudText>
+                                <MudText Class=" upto mx-3" style="font-size:15px;">Up To 30% Off</MudText>
+                            </MudCard>
+                        </MudItem>
+
+                        <MudItem Class="offerrow" lg="6" md="6" sm="6" xs="12">
+                            <MudCard Class="offercard">
+                                <MudImage Src="/img/sku/f2f-homemade-rasam-powder.jpg" Alt="img" Class="castoroilimg"></MudImage>
+                                <MudText Class="product mx-3" style="font-weight:400;">Kitchen Essentils</MudText>
+                                <MudText Class="upto mx-3" style="font-size:15px;">Up To 30% Off</MudText>
+                            </MudCard>
+                        </MudItem>
+
+                    </MudGrid>
+                    <br />
+                    <MudGrid>
+                        <MudItem Class="offerrow" lg="6" md="6" sm="6" xs="12">
+                            <MudCard Class="offercard">
+                                <MudImage Src="/img/sku/f2f-honey-wild-forest.jpg" Alt="img" Class="castoroilimg"></MudImage>
+                                <MudText Class="product mx-3" style="font-weight:400;">Sugar</MudText>
+                                <MudText Class="upto mx-3" style="font-size:15px;">Up To 15% Off</MudText>
+                            </MudCard>
+                        </MudItem>
+
+                        <MudItem Class="offerrow" lg="6" md="6" sm="6" xs="12">
+                            <MudCard Class="offercard">
+                                <MudImage Src="/img/sku/f2f-idly-podi.jpg" Alt="img" Class="castoroilimg"></MudImage>
+                                <MudText Class="product mx-3" style="font-weight:400;">Podi and Flours</MudText>
+                                <MudText Class="upto mx-3" style="font-size:15px;">Up To 20% Off</MudText>
+                            </MudCard>
+                        </MudItem>
+
+                    </MudGrid>
+                    <br />
+                </MudItem>
+
+                <MudItem Class="mt-4" lg="6" md="12" sm="12" xs="12">
+                    <MudPaper Style="background-image:linear-gradient(315deg,#f06543 0%,#ffbe3d 74%);border-radius:20px;">
+                        <MudGrid Class="bazor">
+                            <MudItem lg="12" md="12" sm="12" xs="12">
+                                <h4 class="sundayoffer"><span style="color:#130f40;">Big Bazor</span> Combo Offer</h4>
+                            </MudItem>
+                            <MudItem Class="comborow" lg="5" md="5" sm="5" xs="12">
+                                <MudCard Class="combocard">
+                                    <MudImage Src="/img/sku/f2f-puliyogare-paste.jpg" Class="comboimg"></MudImage>
+                                </MudCard>
+                            </MudItem>
+                            <MudItem Class="comborow" lg="2" md="2" sm="2" xs="12">
+                                <MudButton Class="" style="font-size:40px;">+</MudButton>
+                            </MudItem>
+                            <MudItem Class="comborow" lg="5" md="5" sm="5" xs="12">
+                                <MudCard Class="combocard">
+                                    <MudImage Src="/img/sku/f2f-vatha-kuzhambu.jpg" Class="comboimg"></MudImage>
+                                </MudCard>
+                            </MudItem>
+                            <MudItem lg="12" md="12" sm="12" xs="12">
+                                <div class="combodet">
+                                    <MudText Class="bestoffer">Best Offer for Combo</MudText>
+                                    <MudCardHeader Class="comborupee">
+                                        <MudIconButton Icon="@Icons.Material.Filled.CurrencyRupee"></MudIconButton>150<span class="combooriginalrupee"><s><MudIconButton Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small" Class=""></MudIconButton>MRP 300</s></span>
+                                        <span><MudImage Class="gifimage" Style="width:100px;height:100px;" Src="img/category/offerimg.gif"></MudImage></span>@* <span style="color:white">(Special Offer)</span> *@
+                                    </MudCardHeader>
+
+                                </div>
+
+                            </MudItem>
+
+                            @*  9/04/2024 *@
+                            @*  <MudItem lg="4" md="4" sm="4" xs="4">
+                            <MudImage Class="gifimage" Style="width:150px;height:150px;"Src="img/category/giphy.gif"></MudImage>
+                            </MudItem> *@
+
+
+                        </MudGrid>
+                    </MudPaper>
+                </MudItem>
+            </MudGrid>
+        </MudContainer>
+    </MudPaper>
+</MudContainer>
+
+<MudContainer>
+
+    <MudGrid Class="categories">
+        @if (showCategoryCards)
+        {
+            @if (batter)
+            {
+                <MudItem Class="productname" lg="12" md="12" sm="12" xs="12">
+                    <MudIcon Class="producticon" Icon="@Icons.Material.Filled.FoodBank" Size="Size.Large"></MudIcon>
+                    <h3 class="fresh">Fresh Batters</h3>
+                </MudItem>
+                @foreach (var item in freshbatter)
+                {
+                    <MudItem lg="3" md="4" sm="4" xs="12">
+                        <MudCard Class="productdet">
+                            <MudCardHeader Class="offer">42% OFF</MudCardHeader>
+                            <MudImage Class="itemnames" Src="@item.path"></MudImage>
+                            <MudSelect T="string" @bind-Value="item.SelectedQuantity" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mx-2 gramlist" Placeholder="500g">
+                                <MudSelectItem Value="@("1 kg")">1 kg</MudSelectItem>
+                                <MudSelectItem Value="@("2 kg")">2 kg</MudSelectItem>
+                                <MudSelectItem Value="@("3 kg")">3 kg</MudSelectItem>
+                            </MudSelect>
+
+                            @if (!string.IsNullOrEmpty(item.SelectedQuantity))
+                            {
+                                <div>
+                                    <span style="color:red;margin:10px">Selected Quantity: @item.SelectedQuantity</span>
+                                    <span style="color:red;margin:10px">Price: @GetPrice(item.SelectedQuantity)</span>
+                                </div>
+                            }
+                            <div class="priceveg">
+                                <MudCardHeader Class="categorynames">@item.Header @item.amt</MudCardHeader><span><MudImage Class="vegicon" Src="img/category/vegicon.png"></MudImage></span>
+
+                            </div>
+                            <p class="originalprice"><s><MudIconButton Class=" ml-2 mb-0 mr-0 mt-0" Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small"></MudIconButton>@item.originalmrp</s></p>
+                            <MudGrid Class="ratingrow">
+                                <MudItem Class="star" lg="3" md="3" sm="3" xs="3">
+                                    <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                                </MudItem>
+                                <MudItem Class="totalrating" lg="7" md="7" sm="7" xs="6">
+                                    <span class="ratevalue">67 Ratings</span>
+                                </MudItem>
+                            </MudGrid>
+                            @*  <div class="row ratingrow">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 star">
+                <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                </div>
+                <br />
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 totalrating"><span class="ratevalue">67 Ratings</span></div>
+                </div> *@
+                            <MudGrid Class="savecart">
+                                <MudItem Class="favicon" lg="2" md="2" sm="2" xs="2">
+                                    <MudTooltip Text="SaveLater" Arrow="true" Placement="Placement.Bottom">
+                                        <MudIconButton Class="saveicon" Icon="@Icons.Material.Filled.Favorite" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudTooltip>
+                                </MudItem>
+                                <MudItem Class="cart" lg="10" md="10" sm="10" xs="10">
+                                    <MudCardActions Class="p-0"><MudButton Class="cartbtn" OnClick="cartclick" hidden="@showcart" FullWidth=true>Add to Cart</MudButton></MudCardActions>
+                                    <MudButtonGroup Class="countgroup" hidden="@countcart">
+                                        <MudButton Class="incdec" OnClick="decrease">-</MudButton>
+                                        <MudSpacer></MudSpacer>
+                                        <MudText Class="countval">@prouductcount</MudText>
+                                        <MudSpacer></MudSpacer>
+                                        <MudButton Class="incdec" OnClick="increase">+</MudButton>
+                                    </MudButtonGroup>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+            else if (milet)
+            {
+                <MudItem Class="productname" lg="12" md="12" sm="12" xs="12">
+                    <MudIcon Class="producticon" Icon="@Icons.Material.Filled.FoodBank" Size="Size.Large"></MudIcon>
+                    <h3 class="fresh">Millet Foods</h3>
+                </MudItem>
+                @foreach (var item in milletcards)
+                {
+                    <MudItem lg="3" md="4" sm="4" xs="12">
+                        <MudCard Class="productdet">
+                            <MudCardHeader Class="offer">42% OFF</MudCardHeader>
+                            <MudImage Class="itemnames" Src="@item.path"></MudImage>
+                            <MudSelect T="string" @bind-Value="item.SelectedQuantity" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mx-2 gramlist" Placeholder="500g">
+                                <MudSelectItem Value="@("1 kg")">1 kg</MudSelectItem>
+                                <MudSelectItem Value="@("2 kg")">2 kg</MudSelectItem>
+                                <MudSelectItem Value="@("3 kg")">3 kg</MudSelectItem>
+                            </MudSelect>
+
+                            @if (!string.IsNullOrEmpty(item.SelectedQuantity))
+                            {
+                                <div>
+                                    <span style="color:red;margin:10px">Selected Quantity: @item.SelectedQuantity</span>
+                                    <span style="color:red;margin:10px">Price: @GetPrice(item.SelectedQuantity)</span>
+                                </div>
+                            }
+                            <div class="priceveg">
+                                <MudCardHeader Class="categorynames">@item.Header @item.amt</MudCardHeader><span><MudImage Class="vegicon" Src="img/category/vegicon.png"></MudImage></span>
+
+                            </div>
+                            <p class="originalprice"><s><MudIconButton Class=" ml-2 mb-0 mr-0 mt-0" Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small"></MudIconButton>@item.originalmrp</s></p>
+                            <MudGrid Class="ratingrow">
+                                <MudItem Class="star" lg="3" md="3" sm="3" xs="3">
+                                    <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                                </MudItem>
+                                <MudItem Class="totalrating" lg="7" md="7" sm="7" xs="6">
+                                    <span class="ratevalue">67 Ratings</span>
+                                </MudItem>
+                            </MudGrid>
+                            <MudGrid Class="savecart">
+                                <MudItem Class="favicon" lg="2" md="2" sm="2" xs="2">
+                                    <MudTooltip Text="SaveLater" Arrow="true" Placement="Placement.Bottom">
+                                        <MudIconButton Class="saveicon" Icon="@Icons.Material.Filled.Favorite" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudTooltip>
+                                </MudItem>
+                                <MudItem Class="cart" lg="10" md="10" sm="10" xs="10">
+                                    <MudCardActions Class="p-0"><MudButton Class="cartbtn" OnClick="cartclick" hidden="@showcart" FullWidth=true>Add to Cart</MudButton></MudCardActions>
+                                    <MudButtonGroup Class="countgroup" hidden="@countcart">
+                                        <MudButton Class="incdec" OnClick="decrease">-</MudButton>
+                                        <MudSpacer></MudSpacer>
+                                        <MudText Class="countval">@prouductcount</MudText>
+                                        <MudSpacer></MudSpacer>
+                                        <MudButton Class="incdec" OnClick="increase">+</MudButton>
+                                    </MudButtonGroup>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+            else if (cold)
+            {
+                <MudItem Class="productname" lg="12" md="12" sm="12" xs="12">
+                    <MudIcon Class="producticon" Icon="@Icons.Material.Filled.FoodBank" Size="Size.Large"></MudIcon>
+                    <h3 class="fresh">Cold Pressed Oils</h3>
+                </MudItem>
+                @foreach (var item in coldpressedoil)
+                {
+                    <MudItem lg="3" md="4" sm="4" xs="12">
+                        <MudCard Class="productdet">
+                            <MudCardHeader Class="offer">42% OFF</MudCardHeader>
+                            <MudImage Class="itemnames" Src="@item.path"></MudImage>
+                            <MudSelect T="string" @bind-Value="item.SelectedQuantity" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mx-2 gramlist" Placeholder="500g">
+                                <MudSelectItem Value="@("1 litre")">1 litre</MudSelectItem>
+                                <MudSelectItem Value="@("3 litre")">3 litre</MudSelectItem>
+                                <MudSelectItem Value="@("5 litre")">5 litre</MudSelectItem>
+                            </MudSelect>
+
+                            @if (!string.IsNullOrEmpty(item.SelectedQuantity))
+                            {
+                                <div>
+                                    <span style="color:red;margin:10px">Selected Quantity: @item.SelectedQuantity</span>
+                                    <span style="color:red;margin:10px">Price: @GetPrice(item.SelectedQuantity)</span>
+                                </div>
+                            }
+                            <div class="priceveg">
+                                <MudCardHeader Class="categorynames">@item.Header @item.amt</MudCardHeader><span><MudImage Class="vegicon" Src="img/category/vegicon.png"></MudImage></span>
+
+                            </div>
+                            <p class="originalprice"><s><MudIconButton Class=" ml-2 mb-0 mr-0 mt-0" Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small"></MudIconButton>@item.originalmrp</s></p>
+                            <MudGrid Class="ratingrow">
+                                <MudItem Class="star" lg="3" md="3" sm="3" xs="3">
+                                    <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                                </MudItem>
+                                <MudItem Class="totalrating" lg="7" md="7" sm="7" xs="6">
+                                    <span class="ratevalue">67 Ratings</span>
+                                </MudItem>
+                            </MudGrid>
+                            <MudGrid Class="savecart">
+                                <MudItem Class="favicon" lg="2" md="2" sm="2" xs="2">
+                                    <MudTooltip Text="SaveLater" Arrow="true" Placement="Placement.Bottom">
+                                        <MudIconButton Class="saveicon" Icon="@Icons.Material.Filled.Favorite" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudTooltip>
+                                </MudItem>
+                                <MudItem Class="cart" lg="10" md="10" sm="10" xs="10">
+                                    <MudCardActions Class="p-0"><MudButton Class="cartbtn" OnClick="cartclick" hidden="@showcart" FullWidth=true>Add to Cart</MudButton></MudCardActions>
+                                    <MudButtonGroup Class="countgroup" hidden="@countcart">
+                                        <MudButton Class="incdec" OnClick="decrease">-</MudButton>
+                                        <MudSpacer></MudSpacer>
+                                        <MudText Class="countval">@prouductcount</MudText>
+                                        <MudSpacer></MudSpacer>
+                                        <MudButton Class="incdec" OnClick="increase">+</MudButton>
+                                    </MudButtonGroup>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+            else if (kitchen)
+            {
+                <MudItem Class="productname" lg="12" md="12" sm="12" xs="12">
+                    <MudIcon Class="producticon" Icon="@Icons.Material.Filled.FoodBank" Size="Size.Large"></MudIcon>
+                    <h3 class="fresh">Kitchen Essentials</h3>
+                </MudItem>
+                @foreach (var item in kitchenessential)
+                {
+                    <MudItem lg="3" md="4" sm="4" xs="12">
+                        <MudCard Class="productdet">
+                            <MudCardHeader Class="offer">42% OFF</MudCardHeader>
+                            <MudImage Class="itemnames" Src="@item.path"></MudImage>
+                            <MudSelect T="string" @bind-Value="item.SelectedQuantity" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mx-2 gramlist" Placeholder="500g">
+                                <MudSelectItem Value="@("1 kg")">1 kg</MudSelectItem>
+                                <MudSelectItem Value="@("2 kg")">2 kg</MudSelectItem>
+                                <MudSelectItem Value="@("3 kg")">3 kg</MudSelectItem>
+                            </MudSelect>
+
+                            @if (!string.IsNullOrEmpty(item.SelectedQuantity))
+                            {
+                                <div>
+                                    <span style="color:red;margin:10px">Selected Quantity: @item.SelectedQuantity</span>
+                                    <span style="color:red;margin:10px">Price: @GetPrice(item.SelectedQuantity)</span>
+                                </div>
+                            }
+                            <div class="priceveg">
+                                <MudCardHeader Class="categorynames">@item.Header @item.amt</MudCardHeader><span><MudImage Class="vegicon" Src="img/category/vegicon.png"></MudImage></span>
+
+                            </div>                            <p class="originalprice"><s><MudIconButton Class=" ml-2 mb-0 mr-0 mt-0" Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small"></MudIconButton>@item.originalmrp</s></p>
+                            <MudGrid Class="ratingrow">
+                                <MudItem Class="star" lg="3" md="3" sm="3" xs="3">
+                                    <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                                </MudItem>
+                                <MudItem Class="totalrating" lg="7" md="7" sm="7" xs="6">
+                                    <span class="ratevalue">67 Ratings</span>
+                                </MudItem>
+                            </MudGrid>
+                            <MudGrid Class="savecart">
+                                <MudItem Class="favicon" lg="2" md="2" sm="2" xs="2">
+                                    <MudTooltip Text="SaveLater" Arrow="true" Placement="Placement.Bottom">
+                                        <MudIconButton Class="saveicon" Icon="@Icons.Material.Filled.Favorite" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudTooltip>
+                                </MudItem>
+                                <MudItem Class="cart" lg="10" md="10" sm="10" xs="10">
+                                    <MudCardActions Class="p-0"><MudButton Class="cartbtn" OnClick="cartclick" hidden="@showcart" FullWidth=true>Add to Cart</MudButton></MudCardActions>
+                                    <MudButtonGroup Class="countgroup" hidden="@countcart">
+                                        <MudButton Class="incdec" OnClick="decrease">-</MudButton>
+                                        <MudSpacer></MudSpacer>
+                                        <MudText Class="countval">@prouductcount</MudText>
+                                        <MudSpacer></MudSpacer>
+                                        <MudButton Class="incdec" OnClick="increase">+</MudButton>
+                                    </MudButtonGroup>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+            else if (natural)
+            {
+                <MudItem Class="productname" lg="12" md="12" sm="12" xs="12">
+                    <MudIcon Class="producticon" Icon="@Icons.Material.Filled.FoodBank" Size="Size.Large"></MudIcon>
+                    <h3 class="fresh">Natural Sugar,Salts & Honey</h3>
+                </MudItem>
+                @foreach (var item in naturalsugar)
+                {
+                    <MudItem lg="3" md="4" sm="4" xs="12">
+                        <MudCard Class="productdet">
+                            <MudCardHeader Class="offer">42% OFF</MudCardHeader>
+                            <MudImage Class="itemnames" Src="@item.path"></MudImage>
+                            <MudSelect T="string" @bind-Value="item.SelectedQuantity" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mx-2 gramlist" Placeholder="500g">
+                                <MudSelectItem Value="@("1 kg")">1 kg</MudSelectItem>
+                                <MudSelectItem Value="@("2 kg")">2 kg</MudSelectItem>
+                                <MudSelectItem Value="@("3 kg")">3 kg</MudSelectItem>
+                            </MudSelect>
+
+                            @if (!string.IsNullOrEmpty(item.SelectedQuantity))
+                            {
+                                <div>
+                                    <span style="color:red;margin:10px">Selected Quantity: @item.SelectedQuantity</span>
+                                    <span style="color:red;margin:10px">Price: @GetPrice(item.SelectedQuantity)</span>
+                                </div>
+                            }
+                            <div class="priceveg">
+                                <MudCardHeader Class="categorynames">@item.Header @item.amt</MudCardHeader><span><MudImage Class="vegicon" Src="img/category/vegicon.png"></MudImage></span>
+
+                            </div>                            <p class="originalprice"><s><MudIconButton Class=" ml-2 mb-0 mr-0 mt-0" Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small"></MudIconButton>@item.originalmrp</s></p>
+                            <MudGrid Class="ratingrow">
+                                <MudItem Class="star" lg="3" md="3" sm="3" xs="3">
+                                    <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                                </MudItem>
+                                <MudItem Class="totalrating" lg="7" md="7" sm="7" xs="6">
+                                    <span class="ratevalue">67 Ratings</span>
+                                </MudItem>
+                            </MudGrid>
+                            <MudGrid Class="savecart">
+                                <MudItem Class="favicon" lg="2" md="2" sm="2" xs="2">
+                                    <MudTooltip Text="SaveLater" Arrow="true" Placement="Placement.Bottom">
+                                        <MudIconButton Class="saveicon" Icon="@Icons.Material.Filled.Favorite" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudTooltip>
+                                </MudItem>
+                                <MudItem Class="cart" lg="10" md="10" sm="10" xs="10">
+                                    <MudCardActions Class="p-0"><MudButton Class="cartbtn" OnClick="cartclick" hidden="@showcart" FullWidth=true>Add to Cart</MudButton></MudCardActions>
+                                    <MudButtonGroup Class="countgroup" hidden="@countcart">
+                                        <MudButton Class="incdec" OnClick="decrease">-</MudButton>
+                                        <MudSpacer></MudSpacer>
+                                        <MudText Class="countval">@prouductcount</MudText>
+                                        <MudSpacer></MudSpacer>
+                                        <MudButton Class="incdec" OnClick="increase">+</MudButton>
+                                    </MudButtonGroup>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+            else if (podi)
+            {
+                <MudItem Class="productname" lg="12" md="12" sm="12" xs="12">
+                    <MudIcon Class="producticon" Icon="@Icons.Material.Filled.FoodBank" Size="Size.Large"></MudIcon>
+                    <h3 class="fresh">Podi & Flours</h3>
+                </MudItem>
+                @foreach (var item in podiflours)
+                {
+                    <MudItem lg="3" md="4" sm="4" xs="12">
+                        <MudCard Class="productdet">
+                            <MudCardHeader Class="offer">42% OFF</MudCardHeader>
+                            <MudImage Class="itemnames" Src="@item.path"></MudImage>
+                            <MudSelect T="string" @bind-Value="item.SelectedQuantity" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mx-2 gramlist" Placeholder="500g">
+                                <MudSelectItem Value="@("1 kg")">1 kg</MudSelectItem>
+                                <MudSelectItem Value="@("2 kg")">2 kg</MudSelectItem>
+                                <MudSelectItem Value="@("3 kg")">3 kg</MudSelectItem>
+                            </MudSelect>
+
+                            @if (!string.IsNullOrEmpty(item.SelectedQuantity))
+                            {
+                                <div>
+                                    <span style="color:red;margin:10px">Selected Quantity: @item.SelectedQuantity</span>
+                                    <span style="color:red;margin:10px">Price: @GetPrice(item.SelectedQuantity)</span>
+                                </div>
+                            }
+                            <div class="priceveg">
+                                <MudCardHeader Class="categorynames">@item.Header @item.amt</MudCardHeader><span><MudImage Class="vegicon" Src="img/category/vegicon.png"></MudImage></span>
+
+                            </div>                            <p class="originalprice"><s><MudIconButton Class=" ml-2 mb-0 mr-0 mt-0" Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small"></MudIconButton>@item.originalmrp</s></p>
+                            <MudGrid Class="ratingrow">
+                                <MudItem Class="star" lg="3" md="3" sm="3" xs="3">
+                                    <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                                </MudItem>
+                                <MudItem Class="totalrating" lg="7" md="7" sm="7" xs="6">
+                                    <span class="ratevalue">67 Ratings</span>
+                                </MudItem>
+                            </MudGrid>
+                            <MudGrid Class="savecart">
+                                <MudItem Class="favicon" lg="2" md="2" sm="2" xs="2">
+                                    <MudTooltip Text="SaveLater" Arrow="true" Placement="Placement.Bottom">
+                                        <MudIconButton Class="saveicon" Icon="@Icons.Material.Filled.Favorite" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudTooltip>
+                                </MudItem>
+                                <MudItem Class="cart" lg="10" md="10" sm="10" xs="10">
+                                    <MudCardActions Class="p-0"><MudButton Class="cartbtn" OnClick="cartclick" hidden="@showcart" FullWidth=true>Add to Cart</MudButton></MudCardActions>
+                                    <MudButtonGroup Class="countgroup" hidden="@countcart">
+                                        <MudButton Class="incdec" OnClick="decrease">-</MudButton>
+                                        <MudSpacer></MudSpacer>
+                                        <MudText Class="countval">@prouductcount</MudText>
+                                        <MudSpacer></MudSpacer>
+                                        <MudButton Class="incdec" OnClick="increase">+</MudButton>
+                                    </MudButtonGroup>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+            else if (bakeslist)
+            {
+                <MudItem Class="productname" lg="12" md="12" sm="12" xs="12">
+                    <MudIcon Class="producticon" Icon="@Icons.Material.Filled.FoodBank" Size="Size.Large"></MudIcon>
+                    <h3 class="fresh">Bake Items</h3>
+                </MudItem>
+                @foreach (var item in bakes)
+                {
+                    <MudItem lg="3" md="4" sm="4" xs="12">
+                        <MudCard Class="productdet">
+                            <MudCardHeader Class="offer">42% OFF</MudCardHeader>
+                            <MudImage Class="itemnames" Src="@item.path"></MudImage>
+                            <MudSelect T="string" @bind-Value="item.SelectedQuantity" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mx-2 gramlist" Placeholder="500g">
+                                <MudSelectItem Value="@("1 kg")">1 kg</MudSelectItem>
+                                <MudSelectItem Value="@("2 kg")">2 kg</MudSelectItem>
+                                <MudSelectItem Value="@("3 kg")">3 kg</MudSelectItem>
+                            </MudSelect>
+
+                            @if (!string.IsNullOrEmpty(item.SelectedQuantity))
+                            {
+                                <div>
+                                    <span style="color:red;margin:10px">Selected Quantity: @item.SelectedQuantity</span>
+                                    <span style="color:red;margin:10px">Price: @GetPrice(item.SelectedQuantity)</span>
+                                </div>
+                            }
+                            <div class="priceveg">
+                                <MudCardHeader Class="categorynames">@item.Header @item.amt</MudCardHeader><span><MudImage Class="vegicon" Src="img/category/vegicon.png"></MudImage></span>
+
+                            </div>                            <p class="originalprice"><s><MudIconButton Class=" ml-2 mb-0 mr-0 mt-0" Icon="@Icons.Material.Filled.CurrencyRupee" Size="Size.Small"></MudIconButton>@item.originalmrp</s></p>
+                            <MudGrid Class="ratingrow">
+                                <MudItem Class="star" lg="3" md="3" sm="3" xs="3">
+                                    <MudText class="rating">@item.Rating<MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Size="Size.Small"></MudIcon></MudText>
+                                </MudItem>
+                                <MudItem Class="totalrating" lg="7" md="7" sm="7" xs="6">
+                                    <span class="ratevalue">67 Ratings</span>
+                                </MudItem>
+                            </MudGrid>
+                            <MudGrid Class="savecart">
+                                <MudItem Class="favicon" lg="2" md="2" sm="2" xs="2">
+                                    <MudTooltip Text="SaveLater" Arrow="true" Placement="Placement.Bottom">
+                                        <MudIconButton Class="saveicon" Icon="@Icons.Material.Filled.Favorite" Variant="Variant.Outlined"></MudIconButton>
+                                    </MudTooltip>
+                                </MudItem>
+                                <MudItem Class="cart" lg="10" md="10" sm="10" xs="10">
+                                    <MudCardActions Class="p-0"><MudButton Class="cartbtn" OnClick="cartclick" hidden="@showcart" FullWidth=true>Add to Cart</MudButton></MudCardActions>
+                                    <MudButtonGroup Class="countgroup" hidden="@countcart">
+                                        <MudButton Class="incdec" OnClick="decrease">-</MudButton>
+                                        <MudSpacer></MudSpacer>
+                                        <MudText Class="countval">@prouductcount</MudText>
+                                        <MudSpacer></MudSpacer>
+                                        <MudButton Class="incdec" OnClick="increase">+</MudButton>
+                                    </MudButtonGroup>
+                                </MudItem>
+                            </MudGrid>
+                        </MudCard>
+                    </MudItem>
+                }
+            }
+        }
+    </MudGrid>
+</MudContainer>
+
+@code {
+
+
+    List<Item> items = new List<Item>
+    {
+        new Item { id = 1,ImageSrc = "/img/category/f2f-ultra-fresh-batters.jpg" },
+        new Item { id = 4,ImageSrc = "/img/category/f2f-kitchen-essentials.jpg" },
+        new Item { id = 2,ImageSrc = "/img/category/f2f-millet-foods.jpg" },
+        new Item { id = 3,ImageSrc = "/img/category/f2f-cold-pressed-oils-and-ghee.jpg" },
+        new Item { id = 5,ImageSrc = "/img/category/f2f-natural-sugars-n-salts.jpg"},
+        new Item { id = 6,ImageSrc = "/img/category/f2f-podi-and-flours.jpg" },
+        new Item { id = 7,ImageSrc = "/img/category/f2f-bakes.jpg" },
+    };
+
+
+
+    bool showCategoryCards = false;
+
+    bool batter = false;
+    bool milet = false;
+    bool cold = false;
+    bool kitchen = false;
+    bool natural = false;
+    bool podi = false;
+    bool bakeslist = false;
+
+
+
+
+
+    public void cardclick(int item)
+    {
+        showCategoryCards = true;
+
+        if (item == 1)
+        {
+            batter = true;
+        }
+        else
+        {
+            batter = false;
+        }
+        if (item == 2)
+        {
+            milet = true;
+        }
+        else
+        {
+            milet = false;
+        }
+        if (item == 3)
+        {
+            cold = true;
+        }
+        else
+        {
+            cold = false;
+        }
+        if (item == 4)
+        {
+            kitchen = true;
+        }
+        else
+        {
+            kitchen = false;
+        }
+        if (item == 5)
+        {
+            natural = true;
+        }
+        else
+        {
+            natural = false;
+        }
+        if (item == 6)
+        {
+            podi = true;
+        }
+        else
+        {
+            podi = false;
+        }
+        if (item == 7)
+        {
+            bakeslist = true;
+        }
+        else
+        {
+            bakeslist = false;
+        }
+        StateHasChanged();
+    }
+
+    bool showcart = false;
+    bool countcart = true;
+    int prouductcount = 1;
+    public void cartclick()
+    {
+        showcart = true;
+        countcart = false;
+    }
+    public void increase()
+    {
+        prouductcount++;
+    }
+    public void decrease()
+    {
+        prouductcount--;
+        if (prouductcount <= 0)
+        {
+            showcart = false;
+            countcart = true;
+            prouductcount = 1;
+        }
+
+    }
+
+    List<categegorycards> freshbatter = new List<categegorycards>
+    {
+        new categegorycards { path = "/img/sku/f2f-appam-batter.jpg", Header = "MRP",amt=300 ,originalmrp=400,Rating=4.1},
+        new categegorycards { path = "/img/sku/f2f-small-onion-sambar.jpg", Header = "MRP",amt=300, originalmrp=400,Rating=4.0},
+        new categegorycards { path = "/img/sku/f2f-neer-dosa-batter.jpg", Header = "MRP",amt=300, originalmrp=400,Rating=4.5},
+        new categegorycards { path = "/img/sku/f2f-tomato-dosa.jpg", Header = "MRP",amt=300,Rating=3.9},
+        new categegorycards { path = "/img/sku/f2f-tomato-dosa.jpg", Header = "MRP",amt=300,Rating=5.0},
+        new categegorycards { path = "/img/sku/f2f-blackgram-porridge-mix.jpg", Header = "MRP",amt=300, originalmrp=400,Rating=4.7},
+        new categegorycards { path = "/img/sku/f2f-multigrain-batter.jpg", Header = "MRP",amt=300,Rating=3.8},
+        new categegorycards { path = "/img/sku/f2f-oats-n-whole-wheat-waffle-pancake-batter.jpg",Header = "MRP",amt=300, originalmrp=400,Rating=3.5},
+        new categegorycards { path = "/img/sku/f2f-white-batter.jpg",Header = "MRP",amt=300, originalmrp=400,Rating=4.4},
+        new categegorycards { path = "/img/sku/f2f-adhirasam-batter.jpg", Header = "MRP",amt=300, originalmrp=400,Rating=4.2},
+        new categegorycards { path = "/img/sku/f2f-combo-appam-stew.jpg", Header = "MRP",amt=300,originalmrp=400,Rating=4.3 },
+        new categegorycards { path = "/img/sku/f2f-plain-salna.jpg", Header = "MRP",amt=300,originalmrp=400,Rating=4.1 },
+        new categegorycards { path = "/img/sku/f2f-garlic-chutney.jpg", Header = "MRP",amt=300,originalmrp=400,Rating=3.9 },
+    };
+    List<categegorycards> milletcards = new List<categegorycards>
+    {
+        new categegorycards { path = "/img/sku/f2f-millet-biryani-mix.jpg", Header = "MRP",amt=400,originalmrp=400,Rating=4.2 },
+        new categegorycards { path = "/img/sku/f2f-millet-bisibelebath.jpg", Header = "MRP",amt=200,originalmrp=350,Rating=4.1 },
+        new categegorycards { path = "/img/sku/f2f-ragi-millet-noodles.jpg", Header = "MRP",amt=100,originalmrp=200,Rating=4.4 },
+        new categegorycards { path = "/img/sku/f2f-millet-mixture.jpg", Header = "MRP" ,amt=50,originalmrp=190,Rating=4.3},
+        new categegorycards { path = "/img/sku/f2f-millet-pongal-mix.jpg", Header = "MRP",amt=200,originalmrp=250,Rating=4.1 },
+        new categegorycards { path = "/img/sku/f2f-millet-roti-flour.jpg", Header = "MRP",amt=190,originalmrp=300,Rating=4.6},
+        new categegorycards { path = "/img/sku/f2f-soya-millet-noodles.jpg", Header = "MRP",amt=150,originalmrp=190,Rating=4.9 },
+        new categegorycards { path = "/img/sku/f2f-red-rice-millet-noodles.jpg", Header = "MRP",amt=300,originalmrp=350,Rating=5.0},
+
+    };
+    List<categegorycards> coldpressedoil = new List<categegorycards>
+    {
+        new categegorycards { path = "/img/sku/f2f-castor-oil-cold-pressed.jpg", Header = "MRP" ,amt=520,originalmrp=600,Rating=4.7},
+        new categegorycards { path = "/img/sku/f2f-cow-ghee.jpg", Header = "MRP",amt=300 ,originalmrp=400,Rating=5.0},
+        new categegorycards { path = "/img/sku/f2f-coconut-oil-cold-pressed.jpg", Header = "MRP",amt=350 ,originalmrp=400,Rating=4.4},
+        new categegorycards { path = "/img/sku/f2f-5l-groundnut-oil-can.jpg", Header = "MRP",amt=430,originalmrp=470,Rating=4.2 },
+        new categegorycards { path = "/img/sku/f2f-5l-gingelly-oil-can.jpg", Header = "MRP",amt=350,originalmrp=490,Rating=4.3 },
+        new categegorycards { path = "/img/sku/f2f-5l-coconut-oil-can.jpg", Header = "MRP",amt=200,originalmrp=300,Rating=4.9 },
+
+    };
+    List<categegorycards> kitchenessential = new List<categegorycards>
+    {
+        new categegorycards { path = "/img/sku/f2f-puliyogare-paste.jpg", Header = "MRP" ,amt=520,originalmrp=400,Rating=4.4},
+        new categegorycards { path = "/img/sku/f2f-pirandai-thokku.jpg", Header = "MRP",amt=300,originalmrp=350,Rating=4.3 },
+        new categegorycards { path = "/img/sku/f2f-vatha-kuzhambu.jpg", Header = "MRP",amt=499,originalmrp=550,Rating=4.2 },
+        new categegorycards { path = "/img/sku/f2f-tomato-thokku.jpg", Header = "MRP",amt=330,originalmrp=390,Rating=4.1 },
+        new categegorycards { path = "/img/sku/f2f-vatha-kuzhambu.jpg", Header = "MRP",amt=100,originalmrp=200,Rating=3.9 },
+        new categegorycards { path = "/img/sku/f2f-maainji-thokku.jpg", Header = "MRP",amt=190,originalmrp=250,Rating=3.5 },
+        new categegorycards { path = "/img/sku/f2f-homemade-rasam-powder.jpg", Header = "MRP",amt=456,originalmrp=500,Rating=3.4 },
+        new categegorycards { path = "/img/sku/f2f-fresh-ginger-garlic-paste.jpg", Header = "MRP",amt=200 ,originalmrp=290,Rating=3.8},
+        new categegorycards { path = "/img/sku/f2f-gongura-rice-mix-paste.jpg", Header = "MRP",amt=97,originalmrp=140,Rating=4.5},
+
+
+    };
+    List<categegorycards> naturalsugar = new List<categegorycards>
+    {
+        new categegorycards { path = "/img/sku/f2f-himalayan-pink-salt.jpg", Header = "MRP" ,amt=300,originalmrp=400,Rating=4.7},
+        new categegorycards { path = "/img/sku/f2f-honey-wild-forest.jpg", Header = "MRP",amt=400,originalmrp=450,Rating=4.5 },
+        new categegorycards { path = "/img/sku/f2f-jaggery-powder.jpg", Header = "MRP",amt=200,originalmrp=300,Rating=4.6 },
+        new categegorycards { path = "/img/sku/f2f-khandsari-unrefined-sugar.jpg", Header = "MRP",amt=590,originalmrp=700,Rating=4.9 },
+
+
+    };
+
+    List<categegorycards> podiflours = new List<categegorycards>
+    {
+        new categegorycards { path = "/img/sku/f2f-blackgram-porridge-mix.jpg", Header = "MRP" ,amt=300,originalmrp=450,Rating=3.7},
+        new categegorycards { path = "/img/sku/f2f-idly-podi.jpg", Header = "MRP",amt=400,originalmrp=450,Rating=3.8 },
+        new categegorycards { path = "/img/sku/f2f-garlic-podi.jpg", Header = "MRP",amt=200,originalmrp=450,Rating=4.1 },
+        new categegorycards { path = "/img/sku/f2f-moringa-podi.jpg", Header = "MRP",amt=590,originalmrp=650,Rating=4.2 },
+        new categegorycards { path = "/img/sku/f2f-sprouted-ragi-flour.jpg", Header = "MRP",amt=590,originalmrp=600,Rating=4.0 },
+
+
+
+    };
+    List<categegorycards> bakes = new List<categegorycards>
+    {
+        new categegorycards { path = "img/sku/f2f-baked-barnyard-millet-crispies.jpg", Header = "MRP" ,amt=300,originalmrp=500,Rating=4.1},
+        new categegorycards { path = "img/sku/f2f-baked-foxtail-coconut-balls.jpg", Header = "MRP",amt=400,originalmrp=420,Rating=4.0 },
+        new categegorycards { path = "img/sku/f2f-baked-little-millet-corn-puff-tomato.jpg", Header = "MRP",amt=200,Rating=3.9 },
+        new categegorycards { path = "img/sku/f2f-baked-pudina-cheese-crispies.jpg", Header = "MRP",amt=590,Rating=3.5 },
+
+
+
+    };
+
+
+}
+
+@code {
+    private string selectedQuantity;
+
+    private decimal GetPrice(string quantity)
+    {
+        // Here you would have your logic to determine the price based on the selected quantity
+        // For demonstration purposes, let's assume a simple linear relationship
+        if (quantity == "1 kg")
+        {
+            return 50.0m;
+        }
+        else if (quantity == "2 kg")
+        {
+            return 100.0m;
+        }
+        else if (quantity == "3 kg")
+        {
+            return 150.0m;
+        }
+        else if (quantity == "500g")
+        {
+            return 25.0m;
+        }
+        else if (quantity == "250g")
+        {
+            return 15.0m;
+        }
+        else if (quantity == "750g")
+        {
+            return 75.0m;
+        }
+        else if (quantity == "1 litre")
+        {
+            return 400.0m;
+        }
+        else if (quantity == "3 litre")
+        {
+            return 1100.0m;
+        }
+        else if (quantity == "5 litre")
+        {
+            return 1800.0m;
+        }
+        else
+        {
+            return 0.0m;
+        }
+    }
+}
+
+<style>
+    body {
+        background-color: #fffdf7;
+        /* background-image: url(img/bgimg1.jpg); */
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .categoryimages {
+        max-width: 100%;
+        height: 275px;
+        border-radius: 20px;
+    }
+
+    /* .categorycard{
+            width:68%;
+            height:289px;
+            align-items:center;
+        } */
+    .categorycard {
+        width: 96%;
+        height: 315px;
+        margin: auto;
+        border-radius: 20px;
+        margin-top: 13px;
+    }
+
+        .categorycard:hover {
+            scale: 1.05;
+        }
+
+    .offer {
+        width: 32%;
+        height: 13px;
+        text-align: center;
+        justify-content: center;
+        background-color: green;
+        color: white;
+        border-radius: 0px 20px;
+    }
+
+    .vegicon {
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        margin-left: 125px;
+        margin-top: 15px;
+    }
+
+    .priceveg {
+        display: inline-flex;
+    }
+
+    .categorynames {
+        color: red;
+        font-size: 20px;
+        font-weight: bold;
+        padding-bottom: 0px;
+    }
+
+    .carouseltop {
+        height: 370px;
+        margin-top: 10px;
+        color: black;
+    }
+
+    .carouselmiddle {
+        height: 350px;
+        margin-top: 10px;
+        color: black;
+    }
+
+
+    .carouselsmall {
+        height: 350px;
+        margin-top: 10px;
+        color: black;
+    }
+
+    .cartbtn {
+        color: white;
+        text-align: center;
+        width: -webkit-fill-available;
+        font-size: 15px;
+        background-color: #ff7800;
+        /*  background-color: darkseagreen; */
+        margin: auto;
+    }
+
+        .cartbtn:hover {
+            background-color: white;
+            color: #ff7800;
+            border: 1px solid green;
+        }
+
+    .paneltop {
+        margin-top: 20px;
+    }
+
+    /*     .mud-carousel-item {
+            left: 35px;
+            right: -2px;
+        } */
+
+    .productheading {
+        color: #ff7800;
+        font-size: 30px;
+        font-family: Impact, Haettenschweiler, sans-serif;
+        text-align: center;
+        font-weight: 900;
+    }
+
+    .itemnames {
+        width: 100%;
+        padding: 13px;
+        border-radius: 20px;
+    }
+
+    .productdet {
+        border-radius: 11px;
+        padding-bottom: 7px;
+    }
+
+        .productdet:hover {
+            box-shadow: 0px -1px 6px 4px #ff7800;
+            /*         scale:1.05;
+     */
+        }
+
+    .categories {
+        margin-top: 10px;
+    }
+
+    .freshbatter {
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .productname {
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        color: #ff7800;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 40px;
+    }
+
+    .producticon {
+        color: black;
+    }
+
+    .countgroup {
+        width: 100%;
+        border-left: 0px !important;
+    }
+
+    .gramlist {
+        margin: 10px;
+        overflow-x: hidden;
+    }
+
+    .quantitylist {
+        margin: 5px;
+        border: 1px solid grey;
+        btn
+    }
+
+        .quantitylist:hover {
+            border: 1px solid green;
+        }
+
+    .incdec {
+        width: 40%;
+        background-color: #ff7800 !important;
+        border-left: 0px !important;
+        border-left-width: 0px;
+        margin-left: 0px;
+    }
+
+    .countval {
+        width: 30%;
+        text-align: center;
+    }
+
+    .saveicon {
+        border: 1px solid grey;
+    }
+
+    .savecart {
+        margin: 3px;
+        width: auto;
+    }
+
+    .originalprice {
+        padding-left: 0px;
+        margin-bottom: 0;
+    }
+
+    .rating {
+        text-align: center;
+        border-radius: 20px;
+        border: 1px;
+        margin: 9px;
+        padding: 3px;
+        width: 60px;
+        background-color: lightgreen;
+    }
+
+
+    .ratingrow {
+        display: inline-flex;
+    }
+
+    .ratingval {
+        margin: 10px;
+    }
+
+    .totalrating {
+        align-content: center;
+        float: left;
+        width: 100px;
+        margin-left: 30px;
+    }
+
+    .favicon {
+        width: 30%;
+        align-content: center;
+    }
+
+    .cart {
+        width: 60%;
+    }
+
+
+
+    .categoryoffers {
+        background-color: white;
+        /*  background-image: linear-gradient(315deg, #f06543 0%, #ffbe3d 74%); */
+        border-radius: 20px;
+        margin-top: 10px;
+        padding-bottom: 20px;
+    }
+
+    .offerimg {
+        height: 100px;
+        width: 100px;
+        margin-top: -85px;
+        margin-left: -14px;
+        position: absolute;
+    }
+
+
+    /*new*/
+
+    .castoroilimg {
+        width: 100%;
+        height: 184px;
+    }
+
+    .offercard {
+        width: 80%;
+        height: 105%;
+    }
+
+    .offerrow {
+        display: flex;
+        justify-content: center;
+    }
+
+    .combocard {
+        height: 100%;
+        width: 102%;
+        margin-left: 17px;
+        margin-right: 17px;
+    }
+
+        .combocard:hover {
+            scale: 1.05;
+            box-shadow: 0x -1px 6px 4px #ff7800;
+        }
+
+    .comboimg {
+        width: 100%;
+    }
+
+    .sundayoffer {
+        text-align: center;
+        font-size: 30px;
+        color: #ff7800;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .comborow {
+        display: flex;
+        justify-content: center
+    }
+
+    .combodet {
+        text-align: center;
+    }
+
+    .bestoffer {
+        animation: blinker 1s linear infinite;
+        text-align: center;
+        font-size: 30px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: #130f40;
+        border-radius: 20px;
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+
+    @@keyframes blinker {
+        50% {
+            opacity: 0;
+            background-color: darkgoldenrod;
+        }
+    }
+
+    .product {
+        color: black;
+        font-weight: 600;
+        text-align: center;
+        font-family: Verdana;
+    }
+
+    .upto {
+        font-weight: 900;
+        font-size: 25px;
+        text-align: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: black;
+    }
+
+    .bazar {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+    .marqueestyle {
+        height: 25px;
+        background-color: black;
+        color: white;
+        font-size: 15px;
+    }
+
+    .categoryheading {
+        font-size: 25px;
+        margin-top: 10px;
+        font-weight: bold;
+        color: #ff7800;
+        font-family: Impact, Haettenschweiler, sans-serif;
+    }
+
+
+    .comborupee {
+        font-size: 30px;
+        font-weight: 900;
+        color: black;
+        display: flex; /* text-align: center; */
+        justify-content: center;
+    }
+
+    }
+
+    .masalacombo {
+        background-color: gainsboro;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .combooriginalrupee {
+        font-size: 20px;
+        align-items: center;
+        color: red;
+        justify-content: center;
+    }
+    /*  @@media (min-width:767px),(max-width:1023px){
+            .carouseltop{
+                visibility:hidden;
+            }
+            .carouselsmall{
+                visibility:hidden;
+            }
+            .carouselmiddle{
+                visibility:visible;
+            }
+        } */
+    @@media(min-width:1101px) {
+        .carouselsmall {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        .carouselmiddle {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        .carouseltop {
+            visibility: visible;
+        }
+
+        .rating {
+            border-radius: 20px;
+            border: 1px;
+            margin: 9px;
+            padding: 3px;
+            width: 60px;
+            background-color: lightgreen;
+        }
+
+        .totalrating {
+            align-content: center;
+            float: left;
+            width: 100px;
+            margin-left: 30px;
+        }
+
+        vegicon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: end;
+            margin-left: 114px;
+            margin-top: 15px;
+            align-content: end;
+            justify-content: flex-end;
+        }
+    }
+
+    @@media (min-width:597px) and (max-width:1100px) {
+        .carouseltop {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        .carouselsmall {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        .carouselmiddle {
+            visibility: visible;
+        }
+
+        .categorycard {
+            width: 100%;
+            height: 290px;
+            margin: auto;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .rating {
+            border-radius: 20px;
+            border: 1px;
+            margin: 9px;
+            padding: 3px;
+            width: 60px;
+            background-color: lightgreen;
+        }
+
+        .ratingrow {
+            display: inline-flex;
+        }
+
+        .totalrating {
+            align-content: center;
+            float: left;
+            width: 37px;
+            margin-left: 30px;
+        }
+
+        .cart {
+            width: 46%;
+        }
+
+        .vegicon {
+            width: 40px;
+            height: 40px;
+            margin-left: 37px;
+            margin-top: 15px;
+        }
+    }
+
+    @@media (min-width:530px) and (max-width:550px) {
+        .categorycard {
+            width: 55%;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .totalrating {
+            align-content: center;
+            float: left;
+            width: 100px;
+            margin-left: 30px;
+        }
+    }
+
+    @@media (max-width:596px) {
+        .carouselmiddle {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        .carouseltop {
+            visibility: hidden;
+            display: none !important;
+        }
+
+        .carouselsmall {
+            visibility: visible;
+        }
+
+        .categorycard {
+            width: 55%;
+            height: 281px;
+            margin: auto;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .rating {
+            border-radius: 20px;
+            border: 1px;
+            margin: 9px;
+            padding: 3px;
+            width: 60px;
+            background-color: lightgreen;
+        }
+
+        .totalrating {
+            align-content: center;
+            float: left;
+            width: 103px;
+            margin-left: 30px;
+        }
+
+        .star {
+            width: 30%;
+        }
+
+        .favicon {
+            width: 30%;
+            align-content: center;
+        }
+
+        .cart {
+            width: 60%;
+        }
+
+        .vegicon {
+            width: 40px;
+            height: 40px;
+            margin-left: 130px;
+            margin-top: 15px;
+        }
+
+        .
+
+        .castoroilimg {
+            width: 247px;
+            height: 200px;
+        }
+
+        .masalacombo {
+            width: 247px;
+        }
+        /*  9/04/2024 */
+        /* .combodet {
+                text-align: center;
+                width: 159%;
+                 }
+                .comborupee{
+                     margin-top: 116px;
+                }
+                .gifimage{
+                width: 150px;
+                height: 150px;
+                margin-left: -131px;
+                margin-top: 44px;
+                }
+     */
+    }
+</style>

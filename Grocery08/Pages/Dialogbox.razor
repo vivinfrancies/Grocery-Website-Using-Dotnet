@@ -1,0 +1,75 @@
+﻿
+
+
+<MudDialog Class="heightdialog">
+	<DialogContent>
+
+
+		<MudContainer Fixed="true">
+			<MudText Typo="Typo.h4" Class="mb-3 heading">
+				Terms  <span>and</span> Service
+			</MudText> 
+			<MudText Typo="Typo.body2" Class="my-3 text-align"> i) A payment terms clause in your Terms and Conditions agreement is where you disclose details such as how your business will process transactions electronically, what forms of payment you accept and what happens if the buyer cancels a transaction.</MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align"> ii) Payment terms clauses can help mitigate the risk of non-payment, provide protection against chargebacks, or leverage your intellectual property rights by restricting access to content until after the customer has paid.</MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align"> iii) Including payment terms in your Terms and Conditions will help protect your business and avoid disputes that could arise from a lack of clarity around these issues.</MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align"> iv) Including payment terms in your Terms and Conditions will help protect your business and avoid disputes that could arise from a lack of clarity around these issues.</MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align"> v) Trust is essential for companies whose business models are based on sensitive customer data. Users feel secure knowing they have control over their personal information under the terms they signed up for. </MudText>
+			<MudText Typo="Typo.body2" Class="my-3 text-align"> vi) Trust is essential for companies whose business models are based on sensitive customer data. Users feel secure knowing they have control over their personal information under the terms they signed up for.</MudText>
+			<MudButton Class="btn-right my-3" OnClick="Cancel">Close</MudButton>
+
+		</MudContainer>
+
+	</DialogContent>
+	<DialogActions>
+	</DialogActions>
+</MudDialog>
+
+<style>
+	.text-align {
+		text-align: justify;
+	}
+
+	.btn-right {
+		float: right;
+		background-color: #ff7800;
+		color: white
+	}
+
+		.btn-right:hover {
+			background-color: white;
+			color: #ff7800;
+			border: 1px solid #ff7800;
+		}
+
+	.heading {
+		color: #130f40 !important;
+		font-family: Impact, Haettenschweiler, sans-serif !important;
+	}
+
+		.heading span {
+			color: #ff7800;
+		}
+
+	body {
+		background-color: #fffdf7;
+	}
+
+	@@media (min-width: 360px) and (max-width: 767px) {
+		.heightdialog {
+			width: 90%;
+		}
+	}
+
+	@@media (min-width: 279px) and (max-width: 359px) {
+		.heightdialog {
+			width: 90%;
+			max-height: 500px
+		}
+	}
+</style>
+
+@code {
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	void Cancel() => MudDialog.Cancel();
+}

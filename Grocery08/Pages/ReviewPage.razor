@@ -1,0 +1,98 @@
+﻿
+
+<MudDialog Class="reviewdialogue">
+    <DialogContent>
+       <MudGrid>
+            @* HoveredValueChanged="HandleHoveredValueChanged" *@
+           <MudItem xs="12" sm="12" md="12" lg="12">
+                <MudText>Rating : <MudRating @bind-SelectedValue="ratingcount" HoveredValueChanged="Hovervalchange"></MudRating></MudText>
+                <MudChip Color="Color.Dark" Class="mt-2">@ratinglable</MudChip>
+            </MudItem>
+           
+            <MudItem xs="12" sm="12" md="12" lg="12">
+                <h6>Wrire your Review</h6>
+                <MudTextField T="String" Placeholder="Customer Review" Variant="Variant.Outlined" Lines="4"></MudTextField>
+           </MudItem>
+
+            <MudItem xs="12" sm="12" md="4" lg="4">
+
+                <MudFileUpload T="IBrowserFile" FilesChanged="Uploadedfiles">
+                    <ButtonTemplate>
+                        <MudButton Variant="Variant.Outlined" Style="margin-width:2px; border-color: #130f40; color:#130f40;" for="@context.Id" HtmlTag="label">
+                            Upload Files
+                        </MudButton>
+                    </ButtonTemplate>
+                </MudFileUpload>
+           </MudItem>
+            <MudItem xs="12" sm="12" md="8" lg="8">
+                @if (files != null)
+                {
+                    <MudList>
+                        @foreach (var file in files)
+                        {
+                            <MudListItem Icon="@Icons.Filled.AttachFile">
+                                @file.Name
+                            </MudListItem>
+                        }
+                    </MudList>
+                }
+           </MudItem>
+       </MudGrid>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<style>
+    .reviewdialogue{
+        
+        background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+        backdrop-filter: blur(1rem);
+    }
+</style>
+
+
+@code {
+
+    public int ratingcount = 0;
+    public int filecount = 0;
+    public int? activevalue;
+
+
+
+
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+
+
+
+    public void Hovervalchange(int? val) => activevalue = val;
+
+    public string ratinglable => (activevalue ?? ratingcount)
+    switch
+    {
+        1 => " Very Bad",
+        2 => " Bad",
+        3 => " Sufficient",
+        4 => " Good ",
+        5 => " Awesome!",
+        _ => " Rate Our Product"
+    };
+
+
+    //Upload Files
+
+    public IList<IBrowserFile> files = new List<IBrowserFile>();
+    public void Uploadedfiles(IBrowserFile file)
+    {
+        files.Add(file);
+    }
+
+
+
+}

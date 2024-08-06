@@ -1,0 +1,546 @@
+﻿@page "/Razorpay"
+@inject NavigationManager NavigationManager
+
+<MudGrid Class="my-10">
+	<MudItem lg="4"></MudItem>
+	<MudItem lg="4" sm="12" xs="12" md="12">
+		<MudCard>
+            <MudCardHeader Class="headercolor">
+                <CardHeaderAvatar>
+                    <MudAvatar Square="true">
+                        <MudImage Src="/img/logo.png" />
+                    </MudAvatar>
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.body1" Class="textcolor">Jeeva S</MudText>
+                  
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    
+                    
+                   
+                    <MudIconButton Icon="@Icons.Material.Filled.Translate" Class="textcolor"  />
+                   
+
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Class="textcolor" OnClick="totalclose" />
+                    
+                </CardHeaderActions>
+            </MudCardHeader>
+            <MudCardContent>
+                    <MudContainer>
+                        <MudPaper>
+                        <MudContainer>
+                        <MudText Typo="Typo.h6">Pay With UPI QR </MudText>
+                        <MudGrid>
+                            <MudItem lg="6" sm="6" xs="12" md="6" Class="d-flex justify-content-center align-content-center">
+                                    <MudButton Variant="Variant.Filled" Class="btn-right alignbutton" hidden="@qr" OnClick="@show" >QR</MudButton>
+                                <MudImage Src="/img/qr.jpeg" hidden="@qrimage" Class="qrimage"></MudImage>
+                            </MudItem>
+                            <MudItem lg="6" sm="6" xs="12" md="6" >
+                                <MudText Class="textchange my-2">Scan the QR using any UPI app on your phone.</MudText>
+                                    <MudGrid Class="mt-3">
+                                    <MudItem lg="2" sm="2" xs="3" md="2" >
+                                        <MudImage Src="/img/rbi-icon.png" Class="footicon"></MudImage>
+                                    </MudItem>
+                                    <MudItem lg="2" sm="2" xs="3" md="2">
+                                        <MudImage Src="/img/visa-icon.png" Class="footicon"></MudImage>
+                                    </MudItem>
+                                    <MudItem lg="2" sm="2" xs="3" md="2">
+                                        <MudImage Src="/img/payment/upi-icon.png" Class="footicon"></MudImage>
+                                    </MudItem>  
+                                    <MudItem lg="2" sm="2" xs="3" md="2">
+                                        <MudImage Src="/img/rupay-icon.png" Class="footicon"></MudImage>
+                                    </MudItem>
+                                </MudGrid>
+                                    <MudText Class="textchange my-2 mt-3" hidden="@qr"> Press QR Button to Pay </MudText>
+                                    <MudText Class="textchange mt-3" hidden="@qrimage">QR Code is valid for <span class="countdown">@counter</span> sec </MudText>
+                            </MudItem>
+                                <MudItem lg="12" md="12" sm="12" xs="12">
+                                    <MudText Style="text-align:center; color:red;">@errormessage</MudText>
+                                </MudItem>
+                        </MudGrid>
+                        </MudContainer>
+                        </MudPaper>
+                        <MudItem Class="mt-4"></MudItem>
+                        <MudText Typo="Typo.subtitle1">UPI, Cards & More</MudText>
+
+                        <MudButtonGroup   Variant="Variant.Filled" VerticalAlign="true" Class="btnsize">
+                        <MudButton FullWidth="true" hidden="@upi" OnClick="forupi">
+
+                                <MudImage Src="/img/payment/upi-icon.png" Class="footicon"></MudImage>
+                                   
+                                    
+                                        <MudText T="string" Class="textmove">UPI/QR</MudText>
+                                        <MudSpacer/>
+                                <MudAvatarGroup Max="@max" Spacing="@spacing">
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/upi-icon.png" Class="footicon" />
+                                    </MudAvatar>
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/phonepe.png" Class="footicon" />
+                                    </MudAvatar>
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/gpay-icon.png" Class="footicon" />
+                                    </MudAvatar>
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/paytm-icon.png" Class="footicon" />
+                                    </MudAvatar>
+                                    
+                                </MudAvatarGroup>
+                                
+                              
+                          </MudButton>
+                        
+                            <MudExpansionPanels hidden="@upiexpand">
+                                <MudExpansionPanel Text=" Pay With UPI ID/ Mobile Number">
+                                    <MudGrid>
+                                        <MudItem lg="2" sm="2" xs="2" md="2">
+                                            <MudImage Src="/img/payment/upi-icon.png" Class="footicon"></MudImage>
+                                        </MudItem>
+                                        <MudItem lg="8" sm="8" xs="8" md="8">
+                                            <MudText>
+                                                Use UPI ID/ Mobile Number
+                                            </MudText>
+                                        </MudItem>
+                                           @* <MudItem lg="1" sm="1" xs="1" md="1">
+                                                <MudTooltip Text="To pay, make sure your mobile number is linked to a UPI ID on your UPI app">
+                                                    <MudIconButton Icon="@Icons.Material.Filled.QuestionMark" Size="Size.Small" />
+                                                </MudTooltip>
+
+                                        </MudItem> *@
+                                       
+                                        <MudSpacer />
+                                        <MudItem lg="2" sm="2" xs="2" md="2">
+                                            <MudIcon Icon="@Icons.Material.Filled.CheckCircle"></MudIcon>
+                                       @*  <MudIconButton OnClick="close" Icon="@Icons.Filled.Close"></MudIconButton> *@
+                                        </MudItem>
+                                    </MudGrid>
+                                    <MudGrid>
+                                        <MudItem lg="12" sm="12" xs="12" md="12">
+                                        <MudTextField T="string" Label="UPI ID/ Mobile Number" Variant="Variant.Filled" Class="searchoutline"></MudTextField>
+                                        </MudItem>
+                                      @*   <MudItem lg="12" sm="12" xs="12" md="12" Class="mt-4">
+                                        <MudButton OnClick="close" Class="closebtn d-flex align-content-end justify-content-end" Style="float:right;background-color:#ff7800; color:white;">Close</MudButton>
+                                        </MudItem> *@
+                                        <MudItem lg="12" sm="12" xs="12" md="12">
+                                        <MudButton FullWidth="true" Variant="Variant.Filled" Style="background-color: #5cb85c; color: white;">
+                                                Pay Now
+                                            </MudButton>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudExpansionPanel>
+                            </MudExpansionPanels>
+
+
+                        <MudButton FullWidth="true" hidden="@cards" OnClick="forcard">
+
+                                <MudImage Src="/img/payment/credit-card-icon.png" Class="footicon"></MudImage>
+
+
+                                <MudText T="string" Class="textmove">Card</MudText>
+                                    <MudSpacer />
+                                     <MudAvatarGroup Max="@max" Spacing="@spacing">
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/visa-card.svg" Class="footicon" />
+                                    </MudAvatar>
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/credit-card-icon.png" Class="footicon" />
+                                    </MudAvatar>
+                                  
+                                  
+
+                                </MudAvatarGroup>
+                                </MudButton>
+
+                            <MudExpansionPanels hidden="@cardsexpand">
+                                <MudExpansionPanel Text="Add New Card">
+                                     <MudGrid>
+                                         <MudItem lg="12" sm="12" xs="12" md="12">
+                                        <MudTextField T="string" Label="Card Holder Name" @bind-Value="@obj3.cardholdername" Variant="Variant.Outlined" For="(()=>obj3.cardholdername)" Class="searchoutline"></MudTextField>
+                                        <MudStack Class="mt-3">
+                                            <MudTextField T="string" @bind-Value="@obj3.cardnumber" Label="Card number" Mask="@(new PatternMask("0000 0000 0000 0000"))" Variant="Variant.Outlined" Class="searchoutline" />
+                                            <MudStack Row="true">
+                                                <MudTextField T="string" Label="Expires" Mask="@(new DateMask("MM/YY", 'Y', 'M'))" Variant="Variant.Outlined" @bind-Value="@obj3.cardexpiry" Class="searchoutline" />
+                                                <MudTextField T="string" Label="CVC" Mask="@(new PatternMask("000"))" Variant="Variant.Outlined" @bind-Value="@obj3.cardcvv" Class="searchoutline" />
+                                            </MudStack>
+
+                                        </MudStack>
+                                         </MudItem>
+                                
+                                       @*  <MudItem lg="12" sm="12" xs="12" md="12">
+          
+                                            <MudTextField T="int" Mask="@(new PatternMask("0000 0000 0000 0000"))" Label="Credit Card Number" @bind-Value="@obj3.cardnumber" Variant="@Variant.Text"  Required="true" />
+                                        </MudItem>
+                                        <MudItem lg="6" sm="6" xs="6" md="6">
+                                            <MudTextField T="string" @bind-Value="@obj3.cardexpiry" Label="Expriy" Variant="Variant.Filled" FullWidth="true" Required="true" />
+                                        </MudItem>
+
+                                      
+
+                                        <MudItem lg="6" sm="6" xs="6" md="6">
+                                            <MudTextField Mask="@(new PatternMask("000"))" Label="CVV" Variant="Variant.Filled" @bind-Value="@obj3.cardcvv" Required="true" />
+                                        </MudItem> *@
+                                       @*  <MudItem lg="12" sm="12" xs="12" md="12" Class="mt-4">
+                                        <MudButton OnClick="closecard" Class=" closebtn d-flex align-content-end justify-content-end" Style="float:right;background-color:#ff7800; color:white;" Color="Color.Warning">Close</MudButton>
+                                        </MudItem> *@
+                                        <MudItem lg="12" sm="12" xs="12" md="12">
+                                        <MudButton FullWidth="true" Variant="Variant.Filled" Style="background-color: #5cb85c; color: white;">
+                                                Pay Now
+                                            </MudButton>
+                                        </MudItem>
+
+                                     </MudGrid>
+                                 </MudExpansionPanel>
+                              </MudExpansionPanels>
+                          
+                                <MudButton FullWidth="true" hidden="@netbank">
+
+                                <MudImage Src="/img/payment/net-banking-icon.png" Class="footicon"></MudImage>
+
+
+                                <MudText T="string" Class="textmove">NetBanking</MudText>
+                                    <MudSpacer />
+                                    <MudAvatarGroup Max="@max" Spacing="@spacing">
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/airtel.png" Class="footicon" />
+                                    </MudAvatar>
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/hdfc.png" Class="footicon" />
+                                    </MudAvatar>
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/net-banking-icon.png" Class="footicon" />
+                                    </MudAvatar>
+                                   
+
+                                </MudAvatarGroup>
+                                </MudButton>
+
+
+   
+                        <MudButton FullWidth="true" hidden="@wallets" OnClick="forwallets">
+
+                                <MudImage Src="/img/payment/credit-card-icon.png" Class="footicon"></MudImage>
+
+
+                                <MudText T="string" Class="textmove">Wallet</MudText>
+                                <MudSpacer />
+                                <MudAvatarGroup Max="@max" Spacing="@spacing">
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/wallet1.jpeg" Class="footicon" />
+                                    </MudAvatar>
+                                    <MudAvatar Size="Size.Small">
+                                        <MudImage Src="/img/payment/wallet2.jpeg" Class="footicon" />
+                                    </MudAvatar>
+                                   
+
+
+                                </MudAvatarGroup>
+                            </MudButton>
+                            <MudExpansionPanels hidden="@walletsexpand">
+                                  <MudExpansionPanel Text="Wallets">
+                                    <MudButtonGroup Variant="Variant.Filled" VerticalAlign="true" Class="btnsize">
+                                        <MudButton>
+                                            <MudImage Src="/img/payment/visa-card.svg" Class="footicon" />
+                                           <MudSpacer/>
+                                           <MudText T="string">Mobikiwi</MudText>
+                                        </MudButton>
+                                        <MudButton>
+                                            <MudImage Src="/img/payment/upi-icon.png" Class="footicon"></MudImage>
+                                            <MudSpacer />
+                                            <MudText T="string">JioMoney</MudText>
+                                        </MudButton>
+                                        <MudButton>
+                                            <MudImage Src="/img/payment/airtel.png" Class="footicon" />
+                                            <MudSpacer />
+                                            <MudText T="string">FreeCharge</MudText>
+                                        </MudButton>
+                                    </MudButtonGroup>
+                                    <MudGrid Class="mt-2">
+                                        <MudItem lg="5" sm="5" xs="5" md="5"></MudItem>
+                                        @* <MudItem lg="2" sm="2" md="2" xs="2">
+                                        <MudButton OnClick="closewallets" Style="background-color:#ff7800; color:white;">
+                                                Close
+                                            </MudButton>
+                                        </MudItem> *@
+                                        <MudItem lg="5" sm="5" xs="5" md="5"></MudItem>
+                                        <MudItem lg="12" sm="12" xs="12" md="12">
+                                        <MudButton FullWidth="true" Variant="Variant.Filled" Style="background-color: #5cb85c; color: white;">
+                                                Pay Now
+                                            </MudButton>
+                                        </MudItem>
+                                    </MudGrid>
+                                   </MudExpansionPanel>
+                                          </MudExpansionPanels>
+                               
+                        
+                        </MudButtonGroup>
+                        <MudItem Class="mt-10"></MudItem>
+                       <MudGrid>
+                           <MudItem lg="6" sm="6" xs="6" md="6"> </MudItem>
+                            <MudItem lg="6" sm="6" xs="6" md="6">
+                                <MudText Typo="Typo.subtitle2" Style="text-align:right;">
+                                    Secured by <b>RazorPay</b>
+
+                                </MudText>
+                                </MudItem>
+                       </MudGrid>                     
+                    </MudContainer>
+                    <MudScrollToTop TopOffset="300">
+
+                    </MudScrollToTop>
+            </MudCardContent>
+            <MudCardActions>
+             <MudGrid>
+                 
+                 @* <MudItem lg="3" sm="3" xs="3" md="3">
+                        <MudText>₹ 1,000</MudText>
+                        <MudLink>Viewitems</MudLink>
+                 </MudItem> *@
+              
+                    
+             </MudGrid>
+            </MudCardActions>
+		</MudCard>
+	</MudItem>
+	<MudItem lg="4"></MudItem>
+</MudGrid>
+<style>
+    .countdown {
+        color:red;
+    }
+    .headercolor{
+        background-color: #666;
+    }
+
+    .textcolor{
+        color:black;
+    }
+
+    .textchange{
+        margin-left:1px;
+        margin-top:4px;
+       
+    }
+
+    .btn-right {
+        float: right;
+        background-color: #ff7800;
+        color: white
+    }
+
+        .btn-right:hover {
+            border: 1px solid #ff7800;
+            background-color: white;
+            color: #ff7800
+        }
+/*     .textchange1{
+       
+        text-align: center;
+    } */
+
+    .footicon {
+        heigth: 30px;
+        width: 30px;
+    }
+    .alignbutton{
+        margin-top:50px;
+       height:30px;
+       width:40px;
+    }
+
+    .btnsize{
+        margin-top:20px;
+        width:100%;
+    }
+
+    .textmove{
+        margin-left:10px;
+    }
+
+    .spancolor{
+        color:darkblue;
+        font-size:medium;
+    }
+
+    .searchoutline {
+        --mud-palette-primary: #ff7800;
+    }
+
+
+    @@media(max-width:350px){
+        .btnsize {
+            margin-top: 150px;
+            width: 80%;
+        }
+
+       
+        
+    }
+
+  
+</style>
+@code {
+    /* public string[] language ={"English","Mandarin Chinese","Spanish","Tamil","Arabic","Hindi","Bengali" ,"Portuguese","Russian ","Japanese","Javanese"};
+                 public bool giv = true;
+                 public bool hiy = false;
+                 void hide()
+                 {
+                 giv = false;
+                 hiy = true;
+
+
+    }
+    */
+    public bool qr = false;
+    public bool qrimage = true;
+    public string errormessage;
+    void show()
+    {
+        qr = true;
+        qrimage = false;
+        func();
+    }
+    public int max = 4;
+    public int spacing = 4;
+
+    public bool upi = false;
+    public bool cards = false;
+    public bool netbank = false;
+    public bool wallets = false;
+
+    public bool upiexpand = true;
+    public bool cardsexpand = true;
+    public bool netbankexpand = true;
+    public bool walletsexpand = true;
+    void upicall()
+    {
+        upi = false; 
+        cards = true;
+        netbank = true;
+        wallets = true;
+        upiexpand = false;
+
+    }
+    void close()
+    {
+        upiexpand = true;
+        cards = false;
+        netbank=false;
+        wallets = false;
+
+    }
+    void cardcall()
+    {
+        upi=true;
+        netbank = true;
+        wallets = true;
+        cards = false;
+        cardsexpand = false;
+    }
+    void closecard()
+    {
+        upi=false;
+        netbank=false;
+        cards=false;
+        wallets = false;
+        cardsexpand = true;
+    }
+    void walletscall()
+    {
+        upi = true;
+        netbank = true;
+        wallets = false;
+        cards = true;
+        walletsexpand = false;
+    }
+    void closewallets()
+    {
+        upi = false;
+        netbank = false;
+        cards = false;
+        wallets = false;
+        walletsexpand = true;
+    }
+
+    card obj3 = new card();
+
+    public string closeall;
+    void totalclose()
+    {
+        NavigationManager.NavigateTo("/Wallet");
+    }
+    public static System.Timers.Timer a;
+    public int counter = 3;
+    public void func()
+    {
+
+
+        a = new System.Timers.Timer(1000);
+        a.Elapsed += CountDownTimer;
+        a.Enabled = true;
+
+
+        void CountDownTimer(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            if (counter > 0)
+            {
+                counter -= 1;
+                errormessage = "";
+            }
+            else
+
+            {
+                a.Enabled = false;
+                qr = false;
+                qrimage = true;
+                errormessage = "QR is Expired";
+                counter = 3;
+
+            }
+            InvokeAsync(StateHasChanged);
+        }
+    }
+    public int btnvalue=0;
+    public void forupi()
+    {
+        if (btnvalue == 0)
+        {
+            upicall();
+            btnvalue = 1;
+        }
+        else if (btnvalue == 1)
+        {
+            close();
+            btnvalue = 0;
+        }
+    }
+    public int btncount=0;
+    public void forcard()
+    {
+        if (btncount == 0)
+        {
+            cardcall();
+            btncount = 1;
+        }
+        else if (btncount == 1)
+        {
+            closecard();
+            btncount = 0;
+        }
+    }
+    public int btncount1 = 0;
+    public void forwallets()
+    {
+        if (btncount1 == 0)
+        {
+            walletscall();
+            btncount1 = 1;
+        }
+        else if (btncount1 == 1)
+        {
+            closewallets();
+            btncount1 = 0;
+        }
+    }
+
+}

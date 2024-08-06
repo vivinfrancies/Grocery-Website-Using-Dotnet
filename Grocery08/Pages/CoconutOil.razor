@@ -1,0 +1,219 @@
+﻿@page "/CoconutOil"
+
+@inject IDialogService DialogService
+ @using System.Net.Http.Json
+@inject HttpClient httpClient
+@inject IDialogService DialogService
+@inject ISnackbar SnackbarService
+@inject ISnackbar Snackbar
+
+
+<h3 class="ProductName"></h3>
+<MudText Style="color:white;"><MudBreadcrumbs Items="product1" Class="breadcrumb-item"></MudBreadcrumbs></MudText>
+
+
+<MudContainer Class="container1">
+	<MudGrid>
+
+		<MudItem xs="12" sm="12" md="12" lg="12">
+			@* <h3>Coconut Oil (Cold Pressed)</h3> *@
+		</MudItem>
+		<MudItem xs="12" sm="12" md="6" lg="5">
+			<MudImage ObjectFit="ObjectFit.Fill" Src="img/sku/f2f-coconut-oil-cold-pressed.jpg" Alt="Coconut Oil (Cold Pressed)" Elevation="25" Class="rounded-lg" />
+		</MudItem>
+		<MudItem xs="12" sm="12" md="6" lg="7">
+
+			<MudGrid>
+
+				<MudItem xs="12" sm="12" md="12" lg="12">
+					<MudText><h1 class="producttitle"><span class="Productnamecolor">Coconut Oil (Cold Pressed),</span> Vegan, Jain Food, Gluten Free</h1></MudText>
+				</MudItem>
+
+				<MudItem xs="12" sm="12" md="12" lg="12">
+					<MudChip Variant="Variant.Filled" Color="Color.Success">Available</MudChip>
+				</MudItem>
+
+				<MudItem Class="rating" xs="12" sm="12" md="12" lg="12">
+					<MudText><p>Public Rating : <MudRating ReadOnly="true" SelectedValue="2"></MudRating></p></MudText>
+				</MudItem>
+
+				@* <MudItem xs="12" sm="12" md="8" lg="9" Dense="true">
+
+				</MudItem> *@
+				<MudItem xs="12" sm="12" md="12" lg="12">
+					<MudText Class="quantity"><b>Quantity</b> : 500 ml ( ₹ 0.46/ml)</MudText>
+				</MudItem>
+
+				<MudItem xs="12" sm="12" md="12" lg="12">
+					<MudText Class="Price"><b>Price </b>: ₹ 230 </MudText>
+				</MudItem>
+				<MudItem xs="12" sm="12" md="12" lg="12">
+					<MudButton Variant="Variant.Outlined" Color="Color.Inherit" EndIcon="@Icons.Material.Filled.AddShoppingCart" Class="baskethover" Style=" color:#ff7800 ; width: 200px; height: 60px;" OnClick="addtobasket" hidden="@showcart">Add to Basket</MudButton>
+
+					<MudButtonGroup Variant="Variant.Outlined" Color="Color.Inherit" Style="border-width:2px ;border-color:#ff7800; width: 200px; height: 60px;" hidden="@newcart">
+						<MudButton Style="color:#ff7800; border:hidden;" OnClick="decrease">-</MudButton>
+						<MudSpacer></MudSpacer>
+						<MudText Color="Color.Inherit" Style="align-content:center; text-align:center; color:#ff7800">@productcount</MudText>
+						<MudSpacer></MudSpacer>
+						<MudButton Style="color:#ff7800; border:hidden;" OnClick="@increase" Class="inc">+</MudButton>
+					</MudButtonGroup>
+				</MudItem>
+
+			</MudGrid>
+
+		</MudItem>
+
+		<MudItem xs="12" sm="12" md="12" lg="12">
+
+			<MudText Class="descriptionhead"><h3>Product <span style="color:#ff7800;">Description</span></h3></MudText>
+
+		</MudItem>
+
+		<MudItem xs="12" sm="12" md="12" lg="12" Class="mobile">
+			<MudText Class="reviewcolor"><h4>Ingredients :</h4></MudText>
+			<MudText Class="description1">Oil extracted from Copra (dried coconut kernels) SHELF LIFE: 6 Months from Date of Manufacturing PACKAGING: Wide open Glass Bottle It is produced using the traditional wooden chekku cold pressed technique. This technique ensures the natural properties of coconut is retained and its unique combination of fatty acids boosts fat loss, heart health and brain function. Coconut oil has a very distinct flavoring especially used in the South Indian cuisines. We try to follow 'Reduce, Reuse & Recycle' wherever possible. We take back your used glass bottles and refund Rs.5 for the same. Please contact the admin (70222 37584/ 63622 22740) or leave a note in the Notes Section when placing a new order for bottle pickup by the delivery agent.</MudText>
+
+			<MudGrid>
+
+				<MudItem Class="mt-4">
+					<MudText Class="reviewcolor"><h4>Review</h4></MudText>
+
+					<MudText><h6>Share your thoughts with other customers </h6></MudText><br />
+
+					<MudButton OnClick="@reviewdialogue" Variant="Variant.Outlined" Class="ratebutton">Rate this Product</MudButton>
+				</MudItem>
+			</MudGrid>
+
+
+		</MudItem>
+	</MudGrid>
+</MudContainer>
+
+
+
+
+
+
+<style>
+	.description1 {
+		margin-left: 5px;
+		font-family: Candara;
+		text-align: justify;
+	}
+
+	.producttitle {
+		color: #130f40;
+	}
+
+	.ProductName {
+		margin-top: 10px;
+	}
+
+	.rounded-lg {
+		width: 100%;
+		height: 100%;
+		transition: box-shadow 0.1s ease-in-out;
+	}
+
+		.rounded-lg:hover {
+			box-shadow: 0px -1px 6px 4px #ff7800;
+			scale: 1.02;
+		}
+
+	.container1 {
+		margin-bottom: 20px;
+	}
+
+	.Productnamecolor {
+		color: #ff7800;
+	}
+
+	.rating {
+		box-shadow: 10px;
+	}
+
+	.description {
+		text-align: justify;
+		color: black;
+		font-family: "Open Sans", sans-serif;
+		transition: scale 0.4s ease-in-out;
+	}
+
+	.reviewhead {
+		text-align: end;
+		font-family: "Open Sans", sans-serif;
+		color: black;
+	}
+
+	.ratebutton {
+		color: #ff7800;
+		margin-width: 2px;
+		border-color: #ff7800;
+	}
+
+	.descriptionhead {
+		text-align: center;
+		font-family: Impact, Haettenschweiler,  sans-serif;
+		color: #130f40;
+	}
+
+	.reviewcolor {
+		color: #130f40;
+	}
+</style>
+
+@code {
+	public bool showcart = false;
+	public bool newcart = true;
+	public int productcount = 1;
+
+
+
+	private List<BreadcrumbItem> product1 = new List<BreadcrumbItem>
+	{
+		new BreadcrumbItem("Home", href: "#", icon: Icons.Material.Filled.Home),
+		new BreadcrumbItem("Product", href: "/Tabs", icon: Icons.Material.Filled.CardGiftcard),
+		new BreadcrumbItem("Coconut Oil (Cold Pressed)", href: "/CoconutOil", icon: Icons.Material.Filled.CardGiftcard)
+
+	};
+
+
+	public void addtobasket()
+	{
+		showcart = true;
+		newcart = false;
+		Snackbar.Add($"Added to Cart", Severity.Success);
+
+	}
+
+
+	// To Decrease
+	public void decrease()
+	{
+		productcount--;
+
+
+		if (productcount == 0)
+		{
+			showcart = false;
+			newcart = true;
+			productcount = 1;
+			Snackbar.Add("Cart is Empty", Severity.Error);
+		}
+	}
+
+	// To Increase
+	public void increase()
+	{
+		productcount++;
+	}
+
+
+	public void reviewdialogue()
+	{
+		var options = new DialogOptions { CloseOnEscapeKey = true, Position = DialogPosition.TopCenter, MaxWidth = MaxWidth.Medium, FullWidth = true, ClassBackground = "dialogueclass" };
+
+		DialogService.Show<ReviewPage>("Review Product", options);
+	}
+
+}

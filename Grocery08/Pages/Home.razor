@@ -1,0 +1,1120 @@
+﻿@page "/"
+@using System.Linq;
+
+
+
+
+<MudItem Class="Background-Img">
+    <MudContainer>
+        <MudGrid>
+            <MudItem lg="5" md="5" sm="5" xs="12" Class="">
+                <MudImage Src="img/img4.png" Class="Image-1" />
+            </MudItem>
+
+            <MudItem lg="7" md="7" sm="7" xs="12" Class="Content">
+                <MudText Class="Main-Heading">Choose delicacy the best healthy way to life</MudText>
+                <MudText Class="Main-Content">Beware what you eat, it becomes part of you and climb the Healthy Food ladder to happiness.</MudText>
+                <MudGrid Class="IconGrid">
+                    <MudItem lg="6" md="6" sm="6" xs="12" Class="IconCard">
+                        <i class="fas fa-leaf fa-2xl HomeIcon"></i><span class="Icon-Content">Organic</span>
+                    </MudItem>
+                    <MudItem lg="6" md="6" sm="6" xs="12" Class="IconCard">
+                        <i class="fa-solid fa-truck fa-2xl HomeIcon"></i><span class="Icon-Content">Fast Delivary</span>
+                    </MudItem>
+                </MudGrid>
+                <MudItem lg="12">
+                    <MudButton Class="HomeBtn mx-2" Variant="Variant.Filled">Shop Now<i class="fa-solid fa-right-long ms-4"></i></MudButton>
+                </MudItem>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+</MudItem>
+
+
+
+
+
+
+
+@* Main slides *@
+@* <div>
+    <MudCarousel Class="mud-width-full cor" TData="object" ShowArrows="false">
+        <BulletTemplate Context="selected">
+            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                <span class="mud-icon-button-label">
+                    <MudIcon Icon="@(selected ? Icons.Material.Filled.Circle : Icons.Material.Outlined.Circle)" Class="button" Color="@Color.Default" />
+                </span>
+            </div>
+        </BulletTemplate>
+        <ChildContent>
+            @foreach (var obj3 in cr)
+            {
+                <MudLink Href="@obj3.Link">
+                    <MudCarouselItem>
+                        <MudImage Class="img" Src=@obj3.Img></MudImage>
+                    </MudCarouselItem>
+                </MudLink>
+            }
+        </ChildContent>
+    </MudCarousel>
+</div> *@
+
+@* Best seller products *@
+<div class="container bestseller">
+    <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading"> Best <span class="ml-2"> Seller</span> </MudText>
+    <MudGrid>
+        @foreach (var obj in md)
+        {
+            <MudItem xxl="2" xl="2" lg="2" md="2" sm="4" xs="6">
+                <MudCard Class="bscard">
+                    <NavLink Href="@obj.link" class="cdbody">
+                        <MudImage Class="bsimg" Src=@obj.Img />
+                        <MudCardContent>
+                            <MudText Typo="Typo.body1">@obj.Qty</MudText>
+                            <MudText Class="mrp" Typo="Typo.body1">MRP &#8377; @obj.MRP</MudText>
+                            <MudText Typo="Typo.body1">@obj.Avb</MudText>
+                        </MudCardContent>
+                    </NavLink>
+                    <MudCardActions>
+                        <MudToggleIconButton Variant="Variant.Outlined" Icon="@Icons.Material.Filled.Favorite" ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Error" ToggledTitle="On" />
+                        <MudButton Variant="Variant.Filled" Class="btn" Href="" @bind-value="@num" hidden="@showcart" >ADD TO CART</MudButton>
+                    </MudCardActions>
+                    <MudButtonGroup Variant="Variant.Outlined" Color="Color.Inherit" Style="border-width:2px ;border-color:#ff7800; width: 200px; height: 60px;" hidden="@newcart">
+                        <MudButton Style="color:#ff7800; border:hidden;" OnClick="decrease">-</MudButton>
+                        <MudSpacer></MudSpacer>
+                        <MudText Color="Color.Inherit" Style="align-content:center; text-align:center; color:#ff7800">@productcount</MudText>
+                        <MudSpacer></MudSpacer>
+                        <MudButton Style="color:#ff7800; border:hidden;" OnClick="@increase" Class="inc">+</MudButton>
+                    </MudButtonGroup>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+</div>
+
+@* best seller for ipad pro *@
+<MudContainer Class="ipadbsel">
+    <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading"> Best <span class="ml-2"> Seller</span> </MudText>
+    <MudCarousel Class="mud-width-full tabbsseller" ShowArrows="true" ShowBullets="false" TData="object" AutoCycle="false">
+        @{
+            var chunkSize = 3;
+            var chunks = md.ChunkBy(chunkSize);
+        }
+        @foreach (var x in chunks)
+        {
+            <MudCarouselItem>
+                <MudGrid>
+                    @foreach (var obj in x)
+                    {
+                        <MudItem lg="4" md="4" sm="4">
+
+                            <MudCard Class="bscard">
+                                <NavLink Href="@obj.link" class="cdbody">
+                                    <MudImage Class="bsimg" Src=@obj.Img />
+                                    <MudCardContent>
+                                        <MudText Typo="Typo.body1">@obj.Qty</MudText>
+                                        <MudText Class="mrp" Typo="Typo.body1">MRP &#8377; @obj.MRP</MudText>
+                                        <MudText Typo="Typo.body1">@obj.Avb</MudText>
+                                    </MudCardContent>
+                                </NavLink>
+                                <MudCardActions>
+                                    <MudToggleIconButton Variant="Variant.Outlined" Icon="@Icons.Material.Filled.Favorite" ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Error" ToggledTitle="On" />
+                                    <MudButton Variant="Variant.Outlined" Class="btn" Href="">ADD TO CART</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </MudCarouselItem>
+        }
+    </MudCarousel>
+</MudContainer>
+
+@* Best seller for tablet *@
+<MudContainer Class="tabsel">
+    <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading"> Best <span class="ml-2"> Seller</span> </MudText>
+    <MudCarousel Class="mud-width-full tabbsseller" ShowArrows="true" ShowBullets="false" TData="object" AutoCycle="false">
+        @{
+            var chunkSize = 2;
+            var chunks = md.ChunkBy(chunkSize);
+        }
+        @foreach (var x in chunks)
+        {
+            <MudCarouselItem>
+                <MudGrid>
+                    @foreach (var obj in x)
+                    {
+                        <MudItem lg="6" md="6" sm="6" xs="6">
+                            <MudCard Class="bscard">
+                                <NavLink Href="@obj.link" class="cdbody">
+                                    <MudImage Class="bsimg" Src=@obj.Img />
+                                    <MudCardContent>
+                                        <MudText Typo="Typo.body1">@obj.Qty</MudText>
+                                        <MudText Class="mrp" Typo="Typo.body1">MRP &#8377; @obj.MRP</MudText>
+                                        <MudText Typo="Typo.body1">@obj.Avb</MudText>
+                                    </MudCardContent>
+                                </NavLink>
+                                <MudCardActions>
+                                    <MudToggleIconButton Variant="Variant.Outlined" Icon="@Icons.Material.Filled.Favorite" ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Error" ToggledTitle="On" />
+                                    <MudButton Variant="Variant.Outlined" Class="btn" Href="">ADD TO CART</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </MudCarouselItem>
+        }
+    </MudCarousel>
+</MudContainer>
+
+@* Best seller for mobile *@
+<MudContainer Class="mobsel">
+    <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading"> Best <span class="ml-2"> Seller</span> </MudText>
+    <MudCarousel Class="mud-width-full mobbsseller" ShowArrows="true" ShowBullets="false" TData="object" AutoCycle="false">
+        @{
+            var chunkSize = 1;
+            var chunks = md.ChunkBy(chunkSize);
+        }
+        @foreach (var x in chunks)
+        {
+            <MudCarouselItem>
+                <MudGrid>
+                    @foreach (var obj in x)
+                    {
+                        <MudItem md="12" sm="12" xs="12">
+                            <MudCard Class="mobbscard">
+                                <NavLink Href="@obj.link" class="cdbody">
+                                    <MudImage Class="mobbsimg" Src=@obj.Img />
+                                    <MudCardContent>
+                                        <MudText Typo="Typo.body1">@obj.Qty</MudText>
+                                        <MudText Class="mrp" Typo="Typo.body1">MRP &#8377; @obj.MRP</MudText>
+                                        <MudText Typo="Typo.body1">@obj.Avb</MudText>
+                                    </MudCardContent>
+                                </NavLink>
+                                <MudCardActions>
+                                    <MudToggleIconButton Variant="Variant.Outlined" Icon="@Icons.Material.Filled.Favorite" ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Error" ToggledTitle="On"   />
+                                    <MudButton Class="btn" FullWidth=true>Add to Cart</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudItem>
+                    }
+                </MudGrid>
+            </MudCarouselItem>
+        }
+    </MudCarousel>
+</MudContainer>
+
+@* product category *@
+<div class="category mt-15">
+    <div class="container">
+        <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading">Explore By <span class="ml-2">Category</span> </MudText>
+        <MudGrid>
+            @foreach (var obj1 in cd)
+            {
+                <MudItem xxl="4" xl="4" lg="4" md="6" sm="6" xs="12" Class="my-3">
+                    <MudPaper Class="categorypaper">
+                        <MudGrid>
+                            <MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6">
+                                <MudItem>
+                                    <MudImage Src="@obj1.Img" Class="categoryimg" />
+                                </MudItem>
+                            </MudItem>
+                            <MudItem xxl="6" xl="6" lg="6" md="6" sm="6" xs="6" Class="makecenter">
+                                <MudItem>
+                                    <MudText Typo="Typo.h6" Style="font-family:Impact">@obj1.Heading</MudText>
+                                </MudItem>
+                                <MudItem>
+                                    <MudButton Variant="Variant.Outlined" Color="Color.Dark">Buy Now</MudButton>
+                                </MudItem>
+                            </MudItem>
+                        </MudGrid>
+                    </MudPaper>
+                </MudItem>
+            }
+        </MudGrid>
+    </div>
+</div>
+
+@* Recip screen for large screen *@
+@* <div class="container Recips">
+    <MudText Typo="Typo.h4" Class="mt-20 mb-5 d-flex align-content-center justify-content-center heading">Recipes</MudText>
+    <MudContainer>
+        <div style="overflow-x: auto;">
+            <div style="display: flex;">
+                @foreach (var obj2 in re)
+                {
+                    <MudLink Href="@obj2.Link">
+                        <MudImage Src=@obj2.Img Class="mx-1 recimg"></MudImage>
+                    </MudLink>
+                }
+            </div>
+        </div>
+    </MudContainer>
+</div> *@
+
+@* Recip screen for mobile screen *@
+@* <div class="container Recipsmobile">
+    <MudText Typo="Typo.h4" Class="mt-15 mb-5 d-flex align-content-center justify-content-center heading">Recipes</MudText>
+    <MudCarousel Class="mud-width-full recmob" TData="object" ShowArrows="true" ShowBullets="false">
+        <BulletTemplate Context="selected">
+            <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                <span class="mud-icon-button-label">
+                    <MudIcon Icon="@(selected ? Icons.Material.Filled.Circle : Icons.Material.Filled.Circle)" Class="button" Color="@Color.Default" />
+                </span>
+            </div>
+        </BulletTemplate>
+        <ChildContent>
+            @foreach (var obj4 in re)
+            {
+                <MudLink Href="@obj4.Link">
+                    <MudCarouselItem>
+                        <MudLink Href="@obj4.Link">
+                            <MudImage Class="recmobimg" Src=@obj4.Img></MudImage>
+                        </MudLink>
+                    </MudCarouselItem>
+                </MudLink>
+            }
+        </ChildContent>
+    </MudCarousel>
+</div> *@
+
+@* images *@
+<div class="container">
+    <MudText Typo="Typo.h4" Class="mt-15 mb-5 d-flex align-content-center justify-content-center heading">Images</MudText>
+    <MudGrid Spacing="0">
+        <MudItem lg="3" md="3" sm="3" xs="6" Class="mob">
+            <MudGrid Spacing="0">
+                <MudItem Class="img1 mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1" Src="img/blog/2.webp" Alt="Alternate Text" />
+                </MudItem>
+                <MudItem Class="img1 mt-4 mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1" Src="img/blog/adirasam.webp" Alt="Alternate Text" />
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+
+        <MudItem lg="3" md="3" sm="3" xs="6" Class="mob">
+            <MudGrid Spacing="0">
+                <MudItem Class="img1 mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1" Src="img/blog/SPROUTED-RAGI-flour.webp" Alt="Alternate Text" />
+                </MudItem>
+                <MudItem Class="img1 mt-4 mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1" Src="img/blog/3.jpg" Alt="Alternate Text" />
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+
+        <MudItem lg="3" md="3" sm="3" xs="6" Class="mob">
+            <MudGrid Spacing="0">
+                <MudItem Class="img1 mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1" Src="img/blog/1.jpg" Alt="Alternate Text" />
+                </MudItem>
+                <MudItem Class="img1 mt-4 mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1 " Src="img/blog/Malaysian-red-sambal.webp" Alt="Alternate Text" />
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+
+        <MudItem lg="3" md="3" sm="3" xs="6" Class="mob">
+            <MudGrid Spacing="0">
+                <MudItem Class="img1  mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1" Src="img/blog/low-carb-batter.webp" Alt="Alternate Text" />
+                </MudItem>
+                <MudItem Class="img1  mt-4 mx-2" lg="12" md="12" sm="12" xs="12">
+                    <MudImage Class="sec1" Src="img/blog/4.webp" Alt="Alternate Text" />
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+</div>
+
+
+
+@* review for large screen *@
+<div class=" reviwewin">
+    <MudContainer Class="mt-15">
+        <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading">Testimonials</MudText>
+        <MudCarousel Class="mud-width-full revtab mb-5" TData="object" ShowArrows="true" ShowBullets="false">
+            @{
+                var chunkSize = 3;
+                var chunks = reviewrating.ChunkBy(chunkSize);
+            }
+
+            @foreach (var x in chunks)
+            {
+                <MudCarouselItem Transition="Transition.Slide">
+                    <MudGrid>
+                        @foreach (var y in x)
+                        {
+                            <MudItem xxl="4" xl="4" lg="4" md="4">
+                                <MudPaper Class="reviewpaper" Elevation="2">
+                                    <MudItem>
+                                        <MudText Class="reviewcontent mx-5 my-5" Typo="Typo.subtitle2">@y.Comments</MudText>
+                                    </MudItem>
+                                    <MudStack Row=true Class="mx-5 my-5">
+                                        <MudAvatar Size="Size.Large">
+                                            <MudImage Src="@y.img" />
+                                        </MudAvatar>
+                                        <MudItem>
+                                            <MudText Typo="Typo.h6">@y.Name</MudText>
+                                            <MudRating SelectedValue="@y.Review" ReadOnly=true Size="Size.Small" />
+                                        </MudItem>
+                                        <MudSpacer />
+                                        <MudImage Src="/img/quotes.png" Class="quotes" />
+                                    </MudStack>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudCarouselItem>
+            }
+        </MudCarousel>
+
+    </MudContainer>
+
+</div>
+
+@* review for small screen *@
+<div class=" reviwembl">
+    <MudContainer>
+        <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading">Testimonials</MudText>
+        <MudCarousel Class="mud-width-full revmob mb-5" TData="object" ShowArrows="true" ShowBullets="false" AutoCycle="false">
+
+            @{
+                var chunkSize = 1;
+                var chunks = reviewrating.ChunkBy(chunkSize);
+            }
+            @foreach (var x in chunks)
+            {
+                <MudCarouselItem Transition="Transition.Slide">
+                    <MudGrid>
+                        @foreach (var y in x)
+                        {
+                            <MudItem sm="12" xs="12">
+                                <MudPaper Class="reviewpaper" Elevation="2">
+                                    <MudItem>
+                                        <MudText Class="reviewcontent mx-5 my-5" Typo="Typo.subtitle2">@y.Comments</MudText>
+                                    </MudItem>
+                                    <MudStack Row=true Class="mx-5 my-5">
+                                        <MudAvatar Size="Size.Large">
+                                            <MudImage Src="@y.img" />
+                                        </MudAvatar>
+                                        <MudItem>
+                                            <MudText Typo="Typo.h6">@y.Name</MudText>
+                                            <MudRating SelectedValue="@y.Review" ReadOnly=true Size="Size.Small" />
+                                        </MudItem>
+                                        <MudSpacer />
+                                        <MudImage Src="/img/quotes.png" Class="quotes" />
+                                    </MudStack>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudCarouselItem>
+            }
+
+        </MudCarousel>
+
+    </MudContainer>
+
+</div>
+
+@* review for medium screen *@
+<div class=" reviwetab">
+    <MudContainer>
+        <MudText Typo="Typo.h4" Class="mt-5 mb-5 d-flex align-content-center justify-content-center heading">Testimonials</MudText>
+        <MudCarousel Class="mud-width-full revtab mb-5" ShowArrows="true" ShowBullets="false" TData="object" AutoCycle="false">
+            @{
+                var chunkSize = 2;
+                var chunks = reviewrating.ChunkBy(chunkSize);
+            }
+            @foreach (var x in chunks)
+            {
+                <MudCarouselItem>
+                    <MudGrid>
+                        @foreach (var y in x)
+                        {
+                            <MudItem md="6" sm="6" xs="6">
+                                <MudPaper Class="reviewpaper" Elevation="2">
+                                    <MudItem>
+                                        <MudText Class="reviewcontent mx-5 my-5" Typo="Typo.subtitle2">@y.Comments</MudText>
+                                    </MudItem>
+                                    <MudStack Row=true Class="mx-5 my-5">
+                                        <MudAvatar Size="Size.Large">
+                                            <MudImage Src="@y.img" />
+                                        </MudAvatar>
+                                        <MudItem>
+                                            <MudText Typo="Typo.h6">@y.Name</MudText>
+                                            <MudRating SelectedValue="@y.Review" ReadOnly=true Size="Size.Small" />
+                                        </MudItem>
+                                        <MudSpacer />
+                                        <MudImage Src="/img/quotes.png" Class="quotes" />
+                                    </MudStack>
+                                </MudPaper>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudCarouselItem>
+            }
+        </MudCarousel>
+    </MudContainer>
+
+</div>
+
+@code
+{
+    public int num;
+    public bool showcart = false;
+    public bool newcart = true;
+    public int productcount = 1;
+
+    // To Decrease
+    public void decrease()
+    {
+        productcount--;
+
+
+        if (productcount == 0)
+        {
+            showcart = false;
+            newcart = true;
+            productcount = 1;
+        }
+    }
+
+    // To Increase
+    public void increase()
+    {
+        productcount++;
+    }
+
+
+    //best seler List
+    List<Model> md = new List<Model>
+    {
+        new Model{Img ="img/sku/f2f-5l-coconut-oil-can.webp", Qty="5 Litre" ,MRP="1800" ,Avb="Avaiable",link="/CoconutOil"},
+        new Model{Img ="img/sku/f2f-mustard-oil.jpg", Qty="1 Litre" ,MRP="450" ,Avb="Avaiable",link=""},
+        new Model{Img ="img/sku/f2f-rose-lemon-sherbet.webp", Qty="100 ml" ,MRP="150" ,Avb="Avaiable",link=""},
+        new Model{Img ="img/sku/f2f-5l-groundnut-oil-can.webp", Qty="5 Litre" ,MRP="1600" ,Avb="Avaiable",link=""},
+        new Model{Img ="img/sku/f2f-cow-ghee.webp", Qty="500 ml" ,MRP="520" ,Avb="Avaiable",link=""},
+        new Model{Img ="img/sku/f2f-kombucha-black-tea.webp", Qty="100 ml" ,MRP="280" ,Avb="Avaiable",link=""},
+    };
+
+    List<carousel> cr = new List<carousel>
+    {
+        new carousel{Img="img/banner/f2f-batters.webp",Link="/product"},
+        new carousel{Img="img/banner/f2f-chutneys.webp",Link="/product"},
+        new carousel{Img="img/banner/f2f-ghee.webp",Link="/product"},
+        new carousel{Img="img/banner/f2f-millet-noodles-and-pasta.webp",Link="/product"},
+        new carousel{Img="img/banner/f2f-oils.webp",Link="/product"},
+
+    };
+
+    List<Recipe> re = new List<Recipe>
+    {
+        new Recipe{Img="img/blog/adirasam.webp",Link="https://youtube.com/shorts/7bR_Ud0oyN4?si=Vp9lf9PgXaw-tQO1"},
+        new Recipe{Img="img/blog/quinoa-dosa-batter-superfood batter.webp",Link="https://youtube.com/shorts/7bR_Ud0oyN4?si=Vp9lf9PgXaw-tQO1"},
+        new Recipe{Img="img/blog/Malaysian-red-sambal.webp",Link="https://youtube.com/shorts/7bR_Ud0oyN4?si=Vp9lf9PgXaw-tQO1"},
+        new Recipe{Img="img/blog/GREEN SAMBAL.webp",Link="https://youtube.com/shorts/7bR_Ud0oyN4?si=Vp9lf9PgXaw-tQO1"},
+        new Recipe{Img="img/blog/stir-fried-millet-noodles.webp",Link="https://youtu.be/4IsUJwLjBxI?si=xU2g-hi6F1XeH9BA"},
+        new Recipe{Img="img/blog/SPROUTED-RAGI-flour.webp",Link="https://youtube.com/shorts/7bR_Ud0oyN4?si=Vp9lf9PgXaw-tQO1"},
+    };
+
+    List<Category> cd = new List<Category>
+    {
+        new Category{Img ="img/homecategory/bakes.png",Link="/product", Heading="Bakes"},
+        new Category{Img ="img/homecategory/flour.png",Link="/product", Heading="Podis/Flours"},
+        new Category{Img ="img/homecategory/honey.png",Link="/product", Heading="Sugar/Honey"},
+        new Category{Img ="img/homecategory/millets.png",Link="/product", Heading="Millet Food"},
+        new Category{Img ="img/homecategory/oil.png",Link="/product", Heading="Oils/Ghee"},
+        new Category{Img ="img/homecategory/batter.png",Link="/product", Heading="Fresh Batter"},
+    };
+
+    //review
+    List<Reviewcard> reviewrating = new List<Reviewcard>
+    {
+       new Reviewcard{Name ="User 1", Review=4 ,Comments="This day everything happened. This day everything happened.This day everything happened. This day everything happened. This day everything happened. This day everything happened.", img="/img/blog/blog01.jpg" },
+ new Reviewcard{Name ="User 2", Review=2 ,Comments="This day everything happened. This day everything happened. This day everything happened. This day everything happened. This day everything happened. This day everything happened.", img="/img/blog/blog03.jpg" },
+ new Reviewcard{Name ="User 3", Review=3 ,Comments="This day everything happened. This day everything happened. This day everything happened.This day everything happened. This day everything happened. This day everything happened.", img="/img/blog/blog01.jpg" },
+ new Reviewcard{Name ="User 4", Review=1 ,Comments="This day everything happened. This day everything happened. This day everything happened.This day everything happened. This day everything happened. This day everything happened.", img="/img/blog/blog03.jpg" },
+};
+
+    public bool carthidden = true;
+    public bool cartbtn = false;
+
+    public void cart()
+    {
+        carthidden = false;
+        cartbtn = true;
+    }
+}
+
+<style>
+    body {
+        background-color: #fffdf7;
+    }
+
+
+    /* jaga */
+
+    .Background-Img {
+        background-color: #f3f3f3;
+    }
+
+    .Image-1 {
+        width: 100%;
+    }
+
+    .Content {
+        align-content: center;
+        justify-content: center;
+    }
+
+    .Main-Heading {
+        font-family: Impact;
+        text-transform: uppercase;
+        line-height: 1;
+        margin-bottom: 8px;
+        font-size: 50px;
+        color: #130f40;
+    }
+
+    .Main-Content {
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+    }
+
+    .HomeBtn {
+        margin-top: 20px;
+        background-color: #ff7800;
+        color: white;
+        width: 70px;
+        width: 107px;
+        justify-content: flex-start;
+        text-wrap: nowrap;
+        transition: 0.4s ease-in-out;
+    }
+
+        .HomeBtn:hover {
+            color: white;
+            background-color: #130f40;
+            width: 138px;
+            transition: 0.3s ease-in-out;
+        }
+
+    .IconCard {
+        align-content: center;
+        justify-content: center;
+        width: 90%;
+        margin: 20px;
+        border: dashed;
+        border-width: thin;
+        color: #ff7800;
+    }
+
+    .Icon-Content {
+        font-family: 'Trebuchet MS';
+        color: black;
+        margin-left: 10px;
+        font-size: 24px;
+    }
+
+    .HomeIcon {
+        color: #ff7800;
+    }
+
+    /* end */
+
+    .quotes {
+        height: 60px;
+    }
+    .reviewcontent {
+        text-align: justify;
+    }
+
+    .reviewimg {
+        height: 200px;
+        width: 100%;
+        background-position: center center;
+        background-size: cover;
+    }
+
+    .reviewpaper {
+        /*         background-image:url("/img/testbg.png");
+            background-size: auto; */
+        background-color: white;
+        color: black;
+        padding: 2%;
+        transition: all .5s ease-in-out;
+    }
+
+        .reviewpaper:hover {
+            background-color: #ff7800;
+            color: white;
+            scale: 1.05;
+            transition: all .5s ease-in-out;
+        }
+
+    .makecenter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .categorypaper {
+        background-color: #f3f3f3;
+        color: #130f40;
+        transition: all .5s ease-in-out;
+    }
+
+        .categorypaper:hover {
+            background-color: #ff7800;
+            color: white;
+            scale: 1.05;
+            transition: all .5s ease-in-out;
+        }
+
+    .categoryimg {
+        height: 120px;
+    }
+    .sec1 {
+        position: relative;
+        width: 100%;
+        transition: all 1s ease 0s;
+    }
+
+        .sec1:hover {
+            scale: 1.1;
+            transition: all 1s ease 0s;
+        }
+
+    .img1 {
+        overflow: hidden;
+    }
+
+    .head {
+        color: #ff7800;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        font-family: Impact, Haettenschweiler, sans-serif !important;
+    }
+
+    .cdbody:hover {
+        color: black
+    }
+
+    .heading {
+        color: #130f40 !important;
+        font-family: Impact, Haettenschweiler, sans-serif !important;
+    }
+
+        .heading span {
+            color: #ff7800;
+        }
+
+    .read {
+        text-decoration: none;
+        color: blue;
+    }
+
+    .minus {
+        width: 20%;
+    }
+
+    .add {
+        width: 20%;
+    }
+
+    .qty {
+        width: 60%;
+    }
+
+    .recimg {
+        height: 299px;
+    }
+
+    .cor {
+        height: 370px;
+    }
+
+    .img {
+        height: 100%;
+        width: -webkit-fill-available;
+    }
+
+    .button {
+        padding-top: 5px;
+    }
+
+    .btn {
+        background-color: #ff7800;
+        color: white;
+        width: 90%;
+        margin-right:5%;
+        margin-left:5%;
+    }
+
+        .btn:hover {
+            background-color: white;
+            color: #ff7800;
+            border: 1px solid #ff7800;
+        }
+
+    .bsimg {
+        width: -webkit-fill-available;
+    }
+
+    .category {
+        margin-top: 30px;
+        padding-bottom: 50px;
+    }
+
+    .catImg {
+        width: -webkit-fill-available;
+    }
+
+    .categorycard:hover {
+        box-shadow: 0px -1px 6px 4px #ff7800;
+        scale: 1.02;
+    }
+
+    .mrp {
+        font-weight: 900;
+    }
+
+    .Recips {
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+
+    .recmobimg {
+        width: -webkit-fill-available;
+    }
+
+    .Recipsmobile {
+        display: none;
+        margin-bottom: 30px;
+    }
+
+    .mobbestseller {
+        display: none;
+    }
+
+    .tabseller {
+        height: 340px;
+    }
+
+    .tabsel {
+        display: none;
+    }
+
+    .mobsel {
+        display: none;
+    }
+
+    .ipadbsel {
+        display: none;
+    }
+
+    /* style for mobile screen */
+    @@media (min-width: 360px) and (max-width: 767px) {
+        .homeheadicon {
+            flex-wrap: wrap;
+        }
+        .categoryimg {
+            height: 100px;
+        }
+        .cor {
+            height: 170px;
+        }
+
+        .button {
+            padding-top: 5px;
+        }
+
+        .img {
+            height: 100%;
+            width: -webkit-fill-available;
+        }
+
+        .button {
+            padding-top: 10px;
+        }
+
+        .mob {
+            margin-top: 5%;
+
+        }
+
+        .Recips {
+            display: none;
+        }
+
+        .Recipsmobile {
+            display: block;
+        }
+
+        .recmob {
+            height: 350px;
+            margin-bottom: 50px;
+        }
+
+        .mobbestseller {
+            display: block;
+        }
+
+        .bestseller {
+            display: none;
+        }
+
+        .mobsel {
+            display: block;
+            width: 80%;
+        }
+
+        .mobbsimg {
+            height: 270px;
+            width: -webkit-fill-available;
+        }
+
+        .mobbscard {
+            width: -webkit-fill-available;
+        }
+
+        .mobbsseller {
+            height: 450px;
+        }
+    }
+
+    /* style for small mobile screen */
+    @@media (min-width: 279px) and (max-width: 359px) {
+        .homeheadicon {
+            flex-wrap: wrap;
+        }
+        .categoryimg {
+            height: 100px;
+        }
+        .mob {
+            margin-top: 5%;
+
+        }
+
+        .button {
+            padding-top: 1px;
+        }
+
+        .Recipsmobile {
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .recmob {
+            height: 250px;
+            margin-bottom: 20px;
+        }
+
+        .Recips {
+            display: none;
+        }
+
+        .cor {
+            height: 150px;
+        }
+
+        .bscard {
+            height: 350px;
+        }
+
+        .bestseller {
+            display: none;
+        }
+
+        .mobsel {
+            display: block;
+            width: 80%;
+        }
+
+        .mobbsimg {
+            width: -webkit-fill-available;
+        }
+
+        .mobbscard {
+            width: -webkit-fill-available;
+        }
+
+        .mobbsseller {
+            height: 395px;
+        }
+    }
+
+    /* Style for tablet screen */
+    @@media (min-width: 768px) and (max-width: 1023px) {
+        .bestseller {
+            display: none;
+        }
+
+        .tabbsseller {
+            height: 550px;
+        }
+
+        .tabsel {
+            display: block;
+        }
+
+        .bsimg {
+            height: 315px;
+        }
+    }
+
+    @@media (min-width: 1024px) and (max-width: 1439px) {
+        .ipadbsel {
+            display: block;
+        }
+
+        .bestseller {
+            display: none;
+        }
+
+        .tabbsseller {
+            height: 500px;
+        }
+
+        .bsimg {
+            height: 300px;
+        }
+    }
+
+    @@media (min-width: 2560px) {
+        .cor {
+            height: 630px;
+        }
+    }
+
+    }
+
+    /* review style */
+    .card-color {
+        background-color: antiquewhite;
+    }
+
+    .revpaper {
+        height: 200px;
+    }
+
+    .revtab {
+        height: 260px;
+    }
+
+    .revmob {
+        height: 255px;
+    }
+
+    .reviewbg {
+        background-image: url("/img/bg.jpg");
+        background-size: 100% 100%;
+    }
+
+    @@media (max-width: 767px) {
+
+
+        .reviwewin {
+            display: none;
+        }
+
+        .reviwembl {
+            display: contents;
+        }
+
+        .reviwetab {
+            display: none;
+        }
+    }
+
+    @@media (min-width: 767px) {
+
+        .reviwewin {
+            display: none;
+        }
+
+        .reviwembl {
+            display: none;
+        }
+
+        .reviwetab {
+            display: contents;
+        }
+    }
+
+    @@media (min-width: 1024px) {
+
+        .reviwewin {
+            display: contents;
+        }
+
+        .reviwembl {
+            display: none;
+        }
+
+        .reviwetab {
+            display: none;
+        }
+    }
+
+    @@media (max-width: 280px) {
+        .revmob {
+            height: 220px;
+        }
+
+        .revpaper {
+            height: 215px;
+        }
+    }
+
+
+    /* Fold */
+    @@media (max-width: 359px) {
+        .IconGrid {
+            flex-wrap: wrap !important;
+        }
+    }
+    /* Small Mobile */
+    @@media (min-width: 360px) and (max-width: 539px) {
+        .IconGrid {
+            flex-wrap: wrap !important;
+        }
+    }
+    /* Large Mobile */
+    @@media (min-width: 540px) and (max-width: 767px) {
+        .IconGrid {
+            flex-wrap: nowrap !important;
+        }
+
+        .Icon-Content {
+            font-size: 12px;
+        }
+    }
+    /* Tab */
+    @@media (min-width: 768px) and (max-width: 1023px) {
+        .IconGrid {
+            flex-wrap: nowrap !important;
+        }
+
+        .Icon-Content {
+            font-size: 16px;
+        }
+    }
+    /* DeskTop */
+    @@media (min-width: 1024px) and (max-width: 1439px) {
+        .IconGrid {
+            flex-wrap: nowrap !important;
+        }
+    }
+    /* Large Screens and Above */
+    @@media (min-width: 1440px) {
+        .IconGrid {
+            flex-wrap: nowrap !important;
+        }
+    }
+
+</style>
